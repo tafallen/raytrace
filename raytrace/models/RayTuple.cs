@@ -1,7 +1,16 @@
-namespace RayTrace.Models{
+namespace RayTrace.Models
+{
     public class RayTuple
     {
-        public RayTuple(double x = 0.0, double y =0.0, double z=0.0, RayTupleType tupleType = RayTupleType.Point)
+        public static RayTuple Vector(double x, double y, double z)
+        {
+            return new RayTuple(x,y,z,RayTupleType.Vector);
+        }
+        public static RayTuple Point(double x, double y, double z)
+        {
+            return new RayTuple(x,y,z,RayTupleType.Point);
+        }
+        private RayTuple(double x = 0.0, double y =0.0, double z=0.0, RayTupleType tupleType = RayTupleType.Point)
         {
             X = x;
             Y = y;

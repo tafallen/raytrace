@@ -9,7 +9,7 @@ namespace RayTraceTest.Models
         [TestMethod]
         public void TestPoint()
         {
-            var tuple = new RayTuple(0.1, 1.3, -4.3, RayTupleType.Point);
+            var tuple = RayTuple.Point(0.1, 1.3, -4.3);
 
             tuple.Assert(0.1, 1.3, -4.3, RayTupleType.Point);
         }
@@ -17,7 +17,7 @@ namespace RayTraceTest.Models
         [TestMethod]
         public void TestVector()
         {
-            var tuple = new RayTuple(0.1, 1.3, -4.3, RayTupleType.Vector);
+            var tuple = RayTuple.Vector(0.1, 1.3, -4.3);
 
             tuple.Assert(0.1, 1.3, -4.3, RayTupleType.Vector);
         }
