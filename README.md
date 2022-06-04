@@ -1,1 +1,1 @@
-## Raytracer Project
+# Raytracer Challenge
