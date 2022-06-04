@@ -2,7 +2,7 @@ namespace RayTrace.Models
 {
     public enum RayTupleType
     {
-        Point = 0,
-        Vector = 1
+        Vector = 0,
+        Point = 1
     }
 }
