@@ -31,7 +31,7 @@ namespace RayTraceTest.Models
             var actualResult = point + vector;
             var expectedResult = RayTuple.Point(1,1,6);
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace RayTraceTest.Models
             var actualResult = point + vector;
             var expectedResult = RayTuple.Point(1,1,6);
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
         }
         
         [TestMethod]
@@ -56,7 +56,7 @@ namespace RayTraceTest.Models
             var actualResult = vector1 + vector2;
             var expectedResult = RayTuple.Vector(1,1,6);
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace RayTraceTest.Models
             var expectedResult = RayTuple.Vector(-2,-4,-6);
             var actualResult = point1-point2;
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace RayTraceTest.Models
             var expectedResult = RayTuple.Point(-2,-4,-6);
             var actualResult = point-vector;
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace RayTraceTest.Models
             var expectedResult = RayTuple.Vector(-2,-4,-6);
             var actualResult = vector1 - vector2;
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
         }
 
         [TestMethod]
@@ -103,7 +103,37 @@ namespace RayTraceTest.Models
             var expectedResult = RayTuple.Vector(-1,2,-3);
             var actualResult = !vector;
 
-            actualResult.Assert(expectedResult);
+            expectedResult.Assert(actualResult);
+        }
+
+        [TestMethod]
+        public void TestScalarMultiplicationSucceeds()
+        {
+            var vector = RayTuple.Vector(1,-2,3);
+
+            var expectedResult = RayTuple.Vector(3.5, -7, 10.5);
+
+            expectedResult.Assert(vector * 3.5);
+        }
+
+        [TestMethod]
+        public void TestScalarFractionalMultiplicationSucceeds()
+        {
+            var vector = RayTuple.Vector(1,-2,3);
+
+            var expectedResult = RayTuple.Vector(0.5, -1, 1.5);
+
+            expectedResult.Assert(vector * 0.5);
+        }
+
+        [TestMethod]
+        public void TestScalarDivisionSucceeds()
+        {
+            var vector = RayTuple.Vector(1,-2,3);
+
+            var expectedResult = RayTuple.Vector(0.5, -1, 1.5);
+
+            expectedResult.Assert(vector / 2);
         }
     }
 }
