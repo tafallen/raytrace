@@ -3,28 +3,6 @@ using RayTrace.Models;
 
 namespace RayTrace.Engine
 {
-    public class Projectile
-    {
-        public RayTuple Position {get; set;}
-        public RayTuple Velocity {get; set;}
-        public Projectile(RayTuple position, RayTuple velocity)
-        {
-            Position = position;
-            Velocity = velocity;
-        }
-    }
-
-    public class Environment
-    {
-        public RayTuple Gravity {get; set;}
-        public RayTuple Wind {get; set;}
-        public Environment(RayTuple gravity, RayTuple wind)
-        {
-            Gravity = gravity;
-            Wind = wind;
-        }
-    }
-
     public class CannonEngine
     {
         public Projectile Projectile {get; set;}
