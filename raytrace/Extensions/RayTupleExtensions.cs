@@ -21,12 +21,24 @@ namespace RayTrace.Extensions
             return new RayTuple(x, y, z, tuple.Type);
         }
 
-        public static double DotProduct(this RayTuple a, RayTuple b )
+        public static double DotProduct(this RayTuple a, RayTuple b)
         {
             if( a.Type != RayTupleType.Vector || b.Type != RayTupleType.Vector)
                 throw new ArgumentException("DotProduct() - Both tuples must be vectors");
 
             return (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
+        }
+
+        public static RayTuple CrossProduct(this RayTuple a, RayTuple b)
+        {
+            if( a.Type != RayTupleType.Vector || b.Type != RayTupleType.Vector)
+                throw new ArgumentException("CrossProduct() - Both tuples must be vectors");
+
+            var x = a.Y * b.Z - a.Z * b.Y;
+            var y = a.Z * b.X - a.X * b.Z;
+            var z = a.X * b.Y - a.Y * b.X;
+
+            return RayTuple.Vector(x,y,z);
         }
     }
 }

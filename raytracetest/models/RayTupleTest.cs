@@ -180,6 +180,45 @@ namespace RayTraceTest.Models
 
             Assert.AreEqual(20, vector1.DotProduct(vector2));
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "DotProduct() - Both tuples must be vectors")]
+        public void TestDotProductPointFails()
+        {
+            var vector1 = RayTuple.Point(1,2,3);
+            var vector2 = RayTuple.Vector(2,3,4);
+
+            Assert.AreEqual(20, vector1.DotProduct(vector2));
+        }
+
+        [TestMethod]
+        public void TestCrossProductSucceeds()
+        {
+            var vector1 = RayTuple.Vector(1,2,3);
+            var vector2 = RayTuple.Vector(2,3,4);
+
+            RayTuple.Vector(-1,2,-1)
+                    .Assert(vector1.CrossProduct(vector2));
+
+            RayTuple.Vector(1,-2,1)
+                    .Assert(vector2.CrossProduct(vector1));
+        }
+    
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "CrossProduct() - Both tuples must be vectors")]
+        public void TestCrossProductPointFails()
+        {
+            var vector1 = RayTuple.Point(1,2,3);
+            var vector2 = RayTuple.Vector(2,3,4);
+
+            RayTuple.Vector(-1,2,-1)
+                    .Assert(vector1.CrossProduct(vector2));
+
+            RayTuple.Vector(1,-2,1)
+                    .Assert(vector2.CrossProduct(vector1));
+        }
+
+
     }
 }
 
