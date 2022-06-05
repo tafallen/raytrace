@@ -5,7 +5,7 @@ namespace RayTrace.Models
 {
     public class RayTuple
     {
-        private (double X, double Y, double Z) coords;
+        private (double X, double Y, double Z, RayTupleType type) coords;
 
         public static RayTuple Vector(double x, double y, double z)
         {
@@ -15,7 +15,7 @@ namespace RayTrace.Models
         {
             return new RayTuple(x,y,z,RayTupleType.Point);
         }
-        public RayTupleType Type { get; set; }
+        public RayTupleType Type => coords.type;
 
         public double X { get => coords.X; set => coords.X = value; }
         public double Y { get => coords.Y; set => coords.Y = value; }
@@ -64,8 +64,6 @@ namespace RayTrace.Models
             return new RayTuple(a.X / divisor, a.Y / divisor, a.Z / divisor, a.Type);
         }
 
-        
-
         public override bool Equals(object? obj)
         {
             if( base.Equals(obj) )
@@ -91,8 +89,7 @@ namespace RayTrace.Models
             coords.X = x;
             coords.Y = y;
             coords.Z = z;
-
-            Type = tupleType;
+            coords.type = tupleType;
         }
     }
 }

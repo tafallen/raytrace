@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RayTrace.Models;
+using RayTrace.Extensions;
 
 namespace RayTraceTest.Models
 {
@@ -134,6 +135,26 @@ namespace RayTraceTest.Models
             var expectedResult = RayTuple.Vector(0.5, -1, 1.5);
 
             expectedResult.Assert(vector / 2);
+        }
+
+        [TestMethod]
+        public void TestMagnitudeSucceeds()
+        {
+            var vector = RayTuple.Vector(0,1,0);
+
+            var expectedResult = 1;
+
+            Assert.AreEqual(expectedResult, vector.Magnitude());
+        }
+
+        [TestMethod]
+        public void TestMagnitudeNegValuesSucceeds()
+        {
+            var vector = RayTuple.Vector(-1,2,-3);
+
+            var expectedResult = Math.Sqrt(14);
+
+            Assert.AreEqual(expectedResult, vector.Magnitude());
         }
     }
 }
