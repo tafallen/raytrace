@@ -171,6 +171,15 @@ namespace RayTraceTest.Models
             RayTuple.Vector(0.2672612419124244,0.5345224838248488,0.8017837257372732)
                     .Assert(tuple.Normalise());
         }
+
+        [TestMethod]
+        public void TestDotProductSucceeds()
+        {
+            var vector1 = RayTuple.Vector(1,2,3);
+            var vector2 = RayTuple.Vector(2,3,4);
+
+            Assert.AreEqual(20, vector1.DotProduct(vector2));
+        }
     }
 }
 

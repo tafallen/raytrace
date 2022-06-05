@@ -15,13 +15,18 @@ namespace RayTrace.Extensions
         public static RayTuple Normalise(this RayTuple tuple)
         {
             var magnitude = tuple.Magnitude();
-            Console.WriteLine($"mag: {magnitude}");
             var x = tuple.X/magnitude;
             var y = tuple.Y/magnitude;
             var z = tuple.Z/magnitude;
-            Console.WriteLine($"({x},{y},{z})");
             return new RayTuple(x, y, z, tuple.Type);
+        }
 
+        public static double DotProduct(this RayTuple a, RayTuple b )
+        {
+            if( a.Type != RayTupleType.Vector || b.Type != RayTupleType.Vector)
+                throw new ArgumentException("DotProduct() - Both tuples must be vectors");
+
+            return (a.X * b.X) + (a.Y * b.Y) + (a.Z * b.Z);
         }
     }
 }
