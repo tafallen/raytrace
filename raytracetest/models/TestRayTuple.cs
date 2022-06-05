@@ -1,10 +1,10 @@
-using RayTrace.Models;
-using RayTrace.Extensions;
-
 namespace RayTraceTest.Models
 {
+    using RayTrace.Models;
+    using RayTrace.Extensions;
+
     [TestClass]
-    public class RayTraceTupleTests
+    public class TestRayTraceTuple
     {
         [TestMethod]
         public void TestPoint()
