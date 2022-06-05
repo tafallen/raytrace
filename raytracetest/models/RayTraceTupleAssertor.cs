@@ -16,8 +16,6 @@ namespace RayTraceTest.Models
         {
             actual.Assert(expected.X, expected.Y, expected.Z, expected.Type);
         }
-
-        
     }
 }
 

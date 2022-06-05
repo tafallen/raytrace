@@ -112,9 +112,8 @@ namespace RayTraceTest.Models
         {
             var vector = RayTuple.Vector(1,-2,3);
 
-            var expectedResult = RayTuple.Vector(3.5, -7, 10.5);
-
-            expectedResult.Assert(vector * 3.5);
+            RayTuple.Vector(3.5, -7, 10.5)
+                    .Assert(vector * 3.5);
         }
 
         [TestMethod]
@@ -122,9 +121,8 @@ namespace RayTraceTest.Models
         {
             var vector = RayTuple.Vector(1,-2,3);
 
-            var expectedResult = RayTuple.Vector(0.5, -1, 1.5);
-
-            expectedResult.Assert(vector * 0.5);
+            RayTuple.Vector(0.5, -1, 1.5)
+                    .Assert(vector * 0.5);
         }
 
         [TestMethod]
@@ -132,9 +130,8 @@ namespace RayTraceTest.Models
         {
             var vector = RayTuple.Vector(1,-2,3);
 
-            var expectedResult = RayTuple.Vector(0.5, -1, 1.5);
-
-            expectedResult.Assert(vector / 2);
+            RayTuple.Vector(0.5, -1, 1.5)
+                    .Assert(vector / 2);
         }
 
         [TestMethod]
@@ -155,6 +152,24 @@ namespace RayTraceTest.Models
             var expectedResult = Math.Sqrt(14);
 
             Assert.AreEqual(expectedResult, vector.Magnitude());
+        }
+
+        [TestMethod]
+        public void TestNormalisationSucceeds()
+        {
+            var tuple = RayTuple.Vector(4,0,0);
+
+            RayTuple.Vector(1,0,0)
+                    .Assert(tuple.Normalise());
+        }
+
+        [TestMethod]
+        public void TestFrationalNormalisationSucceeds()
+        {
+            var tuple = RayTuple.Vector(1,2,3);
+ 
+            RayTuple.Vector(0.2672612419124244,0.5345224838248488,0.8017837257372732)
+                    .Assert(tuple.Normalise());
         }
     }
 }

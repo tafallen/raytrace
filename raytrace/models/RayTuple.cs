@@ -7,6 +7,14 @@ namespace RayTrace.Models
     {
         private (double X, double Y, double Z, RayTupleType type) coords;
 
+       
+        public RayTuple(double x = 0.0, double y =0.0, double z=0.0, RayTupleType tupleType = RayTupleType.Point)
+        {
+            coords.X = x;
+            coords.Y = y;
+            coords.Z = z;
+            coords.type = tupleType;
+        }
         public static RayTuple Vector(double x, double y, double z)
         {
             return new RayTuple(x,y,z,RayTupleType.Vector);
@@ -82,14 +90,6 @@ namespace RayTrace.Models
         public override string ToString()
         {
             return $"({coords.X},{coords.Y},{coords.Z},{Type})";            
-        }
-       
-        private RayTuple(double x = 0.0, double y =0.0, double z=0.0, RayTupleType tupleType = RayTupleType.Point)
-        {
-            coords.X = x;
-            coords.Y = y;
-            coords.Z = z;
-            coords.type = tupleType;
         }
     }
 }
