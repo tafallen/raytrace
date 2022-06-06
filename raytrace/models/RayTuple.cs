@@ -29,9 +29,9 @@ namespace RayTrace.Models
 
         public bool Equals(RayTuple other)
         {
-            return (other.X.equals(this.X) &&
-                    other.Y.equals(this.Y) &&
-                    other.Z.equals(this.Z) &&
+            return (other.X.IsEqual(this.X) &&
+                    other.Y.IsEqual(this.Y) &&
+                    other.Z.IsEqual(this.Z) &&
                     other.Type == this.Type);
         }
 
