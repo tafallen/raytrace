@@ -1,12 +1,10 @@
 using RayTrace.Extensions;
-using System;
 
 namespace RayTrace.Models
 {
     public class RayTuple
     {
         private (double X, double Y, double Z, RayTupleType type) coords;
-
        
         public RayTuple(double x = 0.0, double y =0.0, double z=0.0, RayTupleType tupleType = RayTupleType.Point)
         {
