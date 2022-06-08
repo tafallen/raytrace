@@ -4,6 +4,8 @@ namespace RayTrace.Models
 {
     public class Matrix
     {
+        public static Matrix IdentityMatrix = new Matrix(new double[4,4] {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}});
+
         private double[,] matrix;
 
         public Matrix(double[,] matrix)
@@ -58,6 +60,20 @@ namespace RayTrace.Models
                 }
             return result;
         }
+        public static double[] operator *(Matrix a, double[] b)
+        {
+            var result = new double[b.Length];
+            for(var j = 0; j<b.Length; j++)
+            {
+                result[j] = a.GetElement(j,0) * b[0] +
+                            a.GetElement(j,1) * b[1] +
+                            a.GetElement(j,2) * b[2] + 
+                            a.GetElement(j,3) * b[3];
+            }
+
+            return result;
+        }
+
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;
