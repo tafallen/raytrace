@@ -29,7 +29,6 @@ namespace RayTrace.Engine
                 RayTuple.Vector(0,-0.1,0),
                 RayTuple.Vector(-0.01,0,0));
             var engine = new CannonEngine(projectile,environment);   
-
             var canvas = new Canvas(900,550);
 
             while(engine.Projectile.Position.Y > 0)
