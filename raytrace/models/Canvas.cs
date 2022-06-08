@@ -1,4 +1,3 @@
-
 namespace RayTrace.Models
 {
     using System.Text;
@@ -19,9 +18,8 @@ namespace RayTrace.Models
         public Colour GetPixel(int x, int y)
         {
             if(IsXInvalid(x) || IsYInvalid(y))
-            {
                 throw new ArgumentException($"GetPixel(): requested {x},{y} in canvas {Width},{Height}");
-            }
+
             return canvas[x,y].Duplicate();
         }
         public void WritePixel(int x, int y, Colour colour)

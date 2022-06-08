@@ -8,7 +8,7 @@ namespace RayTrace.Extensions
         {
             if( a == RayTupleType.Point && b == RayTupleType.Point)
             {
-                throw new ArgumentException("Both Tuples may not be Point types");
+                throw new ArgumentException("Add() - Both Tuples may not be Point types");
             }
             return (RayTupleType)((int)a + (int)b);
         }
