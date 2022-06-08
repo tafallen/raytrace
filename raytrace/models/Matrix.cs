@@ -73,7 +73,16 @@ namespace RayTrace.Models
 
             return result;
         }
+        public Matrix Transpose()
+        {
+            var result = new Matrix((GetDimensions().y,GetDimensions().x));
 
+            for(var i = 0; i<GetDimensions().x; i++)
+                for(var j = 0; j<GetDimensions().y; j++)
+                    result.SetElement(i,j,this.GetElement(j,i));
+
+            return result;
+        }
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;

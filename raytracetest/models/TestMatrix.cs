@@ -127,5 +127,25 @@ namespace RayTraceTest.Models
             Assert.IsTrue(idm.Equals(Matrix.IdentityMatrix));
             Assert.AreEqual(idm,Matrix.IdentityMatrix);
         }
+        [TestMethod]
+        public void TransposeSucceeds()
+        {
+            var matrix1 = new Matrix(new double[4,4] {{0,9,3,0},{9,8,0,8},{1,8,5,3},{0,0,5,8}});
+
+            var expectedResult = new Matrix(new double[4,4] {{0,9,1,0},{9,8,8,0},{3,0,5,5},{0,8,3,8}});
+            var actualResult = matrix1.Transpose();
+
+            Assert.IsTrue(expectedResult.Equals(actualResult));
+            Assert.AreEqual(expectedResult,actualResult);
+        }
+        [TestMethod]
+        public void TransposeIdentityMatrixSucceeds()
+        {
+            var expectedResult = new Matrix(new double[4,4] {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}});
+            var actualResult = Matrix.IdentityMatrix.Transpose();
+
+            Assert.IsTrue(expectedResult.Equals(actualResult));
+            Assert.AreEqual(expectedResult,actualResult);
+        }
     }
 }
