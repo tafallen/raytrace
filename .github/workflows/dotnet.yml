@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: ./raytracetest/dotnet restore
+      run: dotnet restore .\RayTraceTest\raytracetest.cspro
     - name: Build
-      run: ./raytracetest/dotnet build --no-restore
+      run: dotnet build .\RayTraceTest\raytracetest.cspro --no-restore
     - name: Test
-      run: ./raytracetest/dotnet test --no-build --verbosity normal
+      run: dotnet test .\RayTraceTest\raytracetest.cspro --no-build --verbosity normal
