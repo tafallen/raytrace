@@ -161,5 +161,23 @@ namespace RayTraceTest.Models
             var matrix = new Matrix(new double[,] {{1,5,1},{-3,2,1},{-3,2,1}});
             var actualResult = matrix.Determinant();
         }
+        [TestMethod]
+        public void SubmatrixOf3x3Succeeds()
+        {
+            var matrix = new Matrix(new double[,] {{1,5,0},{-3,2,7},{0,6,-3}});
+            var original = new Matrix(new double[,] {{1,5,0},{-3,2,7},{0,6,-3}});
+
+            var expectedResult = new Matrix(new double[,]{{-3,2},{0,6}});
+            Assert.AreEqual(expectedResult, matrix.Submatrix(0,2));
+            Assert.AreEqual(original,matrix);
+        }
+        [TestMethod]
+        public void SubmatrixOf4x4Succeeds()
+        {
+            var matrix = new Matrix(new double[,] {{-6,1,1,6},{-8,5,8,6},{-1,0,8,2},{-7,1,-1,1}});
+
+            var expectedResult = new Matrix(new double[,]{{-6,1,6},{-8,8,6},{-7,-1,1}});
+            Assert.AreEqual(expectedResult, matrix.Submatrix(2,1));
+        }
     }
 }

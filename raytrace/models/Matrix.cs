@@ -91,6 +91,29 @@ namespace RayTrace.Models
             var bc = matrix[0,1] * matrix[1,0];
             return ad - bc;
         }
+        public Matrix Submatrix(int row, int column)
+        {
+            var dimensions = GetDimensions();
+            var result = new Matrix((dimensions.x-1,dimensions.y-1));
+            var k=0;
+            var l=0;
+            for(var i=0;i<dimensions.x;i++)
+            {
+                if(i!=row)
+                {
+                    for(var j=0;j<dimensions.y;j++)
+                    {
+                        if(j!=column)
+                        {
+                            result.SetElement(l,k++,matrix[i,j]);
+                        }
+                    }
+                    k=0;
+                    l++;
+                }
+            }
+            return result;
+        }
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;
@@ -126,6 +149,10 @@ namespace RayTrace.Models
                 builder.AppendLine(")");
             }
             return builder.ToString();
+        }
+        private Matrix Duplicate()
+        {
+            return new Matrix(matrix);
         }
     }
 }
