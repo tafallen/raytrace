@@ -83,6 +83,14 @@ namespace RayTrace.Models
 
             return result;
         }
+        public double Determinant()
+        {
+            if(GetDimensions() != (2,2))
+                throw new ArgumentException("GetDeterminant() - Matrix was not 2x2");
+            var ad = matrix[0,0] * matrix[1,1]; 
+            var bc = matrix[0,1] * matrix[1,0];
+            return ad - bc;
+        }
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;

@@ -147,5 +147,19 @@ namespace RayTraceTest.Models
             Assert.IsTrue(expectedResult.Equals(actualResult));
             Assert.AreEqual(expectedResult,actualResult);
         }
+        [TestMethod]
+        public void Determinant2x2Succeeds()
+        {
+            var matrix = new Matrix(new double[,] {{1,5},{-3,2}});
+            var actualResult = matrix.Determinant();
+            Assert.AreEqual(17,actualResult);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException),"GetDeterminant() - Matrix was not 2x2")]
+        public void Determinant3x3Fails()
+        {
+            var matrix = new Matrix(new double[,] {{1,5,1},{-3,2,1},{-3,2,1}});
+            var actualResult = matrix.Determinant();
+        }
     }
 }
