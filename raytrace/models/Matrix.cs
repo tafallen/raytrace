@@ -114,6 +114,17 @@ namespace RayTrace.Models
             }
             return result;
         }
+        public double Minor(int x, int y)
+        {
+            return Submatrix(x,y).Determinant();
+        }
+        public double Cofactor(int x, int y)
+        {
+            var z = (x + y) % 2;
+            var result = Minor(x,y);
+
+            return  z !=0 ? -result : result;
+        }
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;

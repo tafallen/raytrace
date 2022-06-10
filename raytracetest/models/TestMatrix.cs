@@ -179,5 +179,25 @@ namespace RayTraceTest.Models
             var expectedResult = new Matrix(new double[,]{{-6,1,6},{-8,8,6},{-7,-1,1}});
             Assert.AreEqual(expectedResult, matrix.Submatrix(2,1));
         }
+        [TestMethod]
+        public void MinorSucceeds()
+        {
+            var matrix = new Matrix(new double[,]{{3,5,0},{2,-1,-7},{6,-1,5}});
+
+            var expectedResult = 25d;
+            var actualResult = matrix.Minor(1,0);
+
+            Assert.AreEqual(expectedResult,actualResult);
+        }
+        [TestMethod]
+        public void CofactorSucceed()
+        {
+            var matrix = new Matrix(new double[,] {{3,5,0},{2,-1,-7},{6,-1,5}});
+
+            Assert.AreEqual(-12, matrix.Minor(0,0));
+            Assert.AreEqual(-12, matrix.Cofactor(0,0));
+            Assert.AreEqual(25, matrix.Minor(1,0));
+            Assert.AreEqual(-25, matrix.Cofactor(1,0));
+        }
     }
 }
