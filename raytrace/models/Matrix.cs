@@ -85,11 +85,19 @@ namespace RayTrace.Models
         }
         public double Determinant()
         {
+            var result = 0d;
             if(GetDimensions() != (2,2))
-                throw new ArgumentException("GetDeterminant() - Matrix was not 2x2");
-            var ad = matrix[0,0] * matrix[1,1]; 
-            var bc = matrix[0,1] * matrix[1,0];
-            return ad - bc;
+            {
+                for(var i=0; i<matrix.GetLength(1);i++ )
+                    result = result + matrix[0,i] * Cofactor(0,i);
+            }
+            else
+            {
+                var ad = matrix[0,0] * matrix[1,1]; 
+                var bc = matrix[0,1] * matrix[1,0];
+                result = ad - bc;
+            }
+            return result;
         }
         public Matrix Submatrix(int row, int column)
         {

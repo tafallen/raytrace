@@ -155,13 +155,6 @@ namespace RayTraceTest.Models
             Assert.AreEqual(17,actualResult);
         }
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),"GetDeterminant() - Matrix was not 2x2")]
-        public void Determinant3x3Fails()
-        {
-            var matrix = new Matrix(new double[,] {{1,5,1},{-3,2,1},{-3,2,1}});
-            var actualResult = matrix.Determinant();
-        }
-        [TestMethod]
         public void SubmatrixOf3x3Succeeds()
         {
             var matrix = new Matrix(new double[,] {{1,5,0},{-3,2,7},{0,6,-3}});
@@ -198,6 +191,27 @@ namespace RayTraceTest.Models
             Assert.AreEqual(-12, matrix.Cofactor(0,0));
             Assert.AreEqual(25, matrix.Minor(1,0));
             Assert.AreEqual(-25, matrix.Cofactor(1,0));
+        }
+        [TestMethod]
+        public void Determinant3x3Succeeds()
+        {
+            var matrix = new Matrix(new double[,]{{1,2,6},{-5,8,-4},{2,6,4}});
+
+            Assert.AreEqual( 56, matrix.Cofactor(0,0));
+            Assert.AreEqual( 12, matrix.Cofactor(0,1));
+            Assert.AreEqual(-46, matrix.Cofactor(0,2));
+            Assert.AreEqual(-196, matrix.Determinant());
+        }
+        [TestMethod]
+        public void Determinant4x4Succeeds()
+        {
+            var matrix = new Matrix(new double[,] {{-2,-8,3,5},{-3,1,7,3},{1,2,-9,6},{-6,7,7,-9}});
+
+            Assert.AreEqual(690, matrix.Cofactor(0,0));
+            Assert.AreEqual(447, matrix.Cofactor(0,1));
+            Assert.AreEqual(210, matrix.Cofactor(0,2));
+            Assert.AreEqual(51, matrix.Cofactor(0,3));
+            Assert.AreEqual(-4071, matrix.Determinant());            
         }
     }
 }
