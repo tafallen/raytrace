@@ -133,6 +133,24 @@ namespace RayTrace.Models
 
             return  z !=0 ? -result : result;
         }
+        public bool IsInvertable()
+        {
+            return Determinant()!=0;
+        }
+        public Matrix Inverse()
+        {
+            var result = new Matrix(GetDimensions());
+            var determinant = Determinant();
+
+            for(var i=0; i<matrix.GetLength(0); i++)
+                for(var j=0; j<matrix.GetLength(1); j++)
+                    {
+                        var value = Cofactor(j,i)/determinant;
+                        result.SetElement(i,j,Math.Round(value,5));
+                    }
+
+            return result;
+        }
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;
@@ -168,10 +186,6 @@ namespace RayTrace.Models
                 builder.AppendLine(")");
             }
             return builder.ToString();
-        }
-        private Matrix Duplicate()
-        {
-            return new Matrix(matrix);
         }
     }
 }
