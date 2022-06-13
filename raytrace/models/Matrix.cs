@@ -86,13 +86,26 @@ namespace RayTrace.Models
 
             return new RayTuple(result[0],result[1],result[2],b.Type);
         }
-        public static Matrix BuildScaleMatrix(double x, double y, double z)
+        public static Matrix ScaleMatrix(double x, double y, double z)
         {
             return new Matrix(new double[,] {
                 {x,0,0,0},
                 {0,y,0,0},
                 {0,0,z,0,},
                 {0,0,0,1}});
+        }
+        public static Matrix RotateXMatrix(double rad)
+        {
+            var a = Math.Cos(rad);
+            var b = -Math.Sin(rad);
+            var c = Math.Sin(rad);
+
+            return new Matrix(new double[,]{
+                {1,0,0,0},
+                {0,a,b,0},
+                {0,c,a,0},
+                {0,0,0,1}
+            });
         }
         public Matrix Transpose()
         {

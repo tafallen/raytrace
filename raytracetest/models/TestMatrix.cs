@@ -283,6 +283,7 @@ namespace RayTraceTest.Models
 
         }
         // This kinda works but the precision isn't great.
+        // Need to implement an assertor and ensure we're not doing too mucg rounding too early...
         // [TestMethod]
         // public void MultiplyProductByInverse()
         // {

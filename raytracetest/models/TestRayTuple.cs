@@ -194,23 +194,40 @@ namespace RayTraceTest.Models
         public void ScaleVectorSuccess()
         {
             var vector = RayTuple.Vector(-4,6,8);
-            var scaleMatrix = Matrix.BuildScaleMatrix(2,3,4);
+            var scaleMatrix = Matrix.ScaleMatrix(2,3,4);
             RayTuple.Vector(-8,18,32).Assert(scaleMatrix * vector);
         }
         [TestMethod]
         public void ScaleInverseVectorSuccess()
         {
             var vector = RayTuple.Vector(-4,6,8);
-            var scaleMatrix = Matrix.BuildScaleMatrix(2,3,4);
+            var scaleMatrix = Matrix.ScaleMatrix(2,3,4);
             var inverse = scaleMatrix.Inverse();
             RayTuple.Vector(-2,2,2).Assert(inverse * vector);
         }
         [TestMethod]
         public void ReflectionSucceeds()
         {
-            var scaleMatrix = Matrix.BuildScaleMatrix(-1,1,1);
+            var scaleMatrix = Matrix.ScaleMatrix(-1,1,1);
             var point = RayTuple.Point(2,3,4);
             RayTuple.Point(-2,3,4).Assert(scaleMatrix * point);
+        }
+        [TestMethod]
+        public void RotateXSucceeds()
+        {
+            var point = RayTuple.Point(0,1,0);
+            var half_q = Matrix.RotateXMatrix(Math.PI/4);
+            var full_q = Matrix.RotateXMatrix(Math.PI/2);
+
+            RayTuple.Point(0,(Math.Sqrt(2)/2),(Math.Sqrt(2)/2)).Assert(half_q * point);
+            RayTuple.Point(0,0,1).Assert(full_q * point);
+        }
+        [TestMethod]
+        public void InverseRotateXSuccess()
+        {
+            var point = RayTuple.Point(0,1,0);
+            var half_q = Matrix.RotateXMatrix(Math.PI/4).Inverse();
+            RayTuple.Point(0,(Math.Sqrt(2)/2),-((Math.Sqrt(2)/2))).Assert(half_q * point);
         }
     }
 }
