@@ -73,6 +73,27 @@ namespace RayTrace.Models
 
             return result;
         }
+        public static RayTuple operator *(Matrix a, RayTuple b)
+        {
+            var result = new double[4];
+            for(var j = 0; j<4; j++)
+            {
+                result[j] = a.GetElement(j,0) * b.X +
+                            a.GetElement(j,1) * b.Y +
+                            a.GetElement(j,2) * b.Z + 
+                            a.GetElement(j,3) * (int)b.Type;
+            }
+
+            return new RayTuple(result[0],result[1],result[2],b.Type);
+        }
+        public static Matrix BuildScaleMatrix(double x, double y, double z)
+        {
+            return new Matrix(new double[,] {
+                {x,0,0,0},
+                {0,y,0,0},
+                {0,0,z,0,},
+                {0,0,0,1}});
+        }
         public Matrix Transpose()
         {
             var result = new Matrix((GetDimensions().y,GetDimensions().x));
@@ -148,7 +169,6 @@ namespace RayTrace.Models
                         var value = Cofactor(j,i)/determinant;
                         result.SetElement(i,j,Math.Round(value,5));
                     }
-
             return result;
         }
         public override bool Equals(object? obj)

@@ -13,7 +13,6 @@ namespace RayTraceTest.Models
 
             tuple.Assert(0.1, 1.3, -4.3, RayTupleType.Point);
         }
-
         [TestMethod]
         public void TestVector()
         {
@@ -21,7 +20,6 @@ namespace RayTraceTest.Models
 
             tuple.Assert(0.1, 1.3, -4.3, RayTupleType.Vector);
         }
-
         [TestMethod]
         public void TestAddPointVectorSucceeds()
         {
@@ -31,7 +29,6 @@ namespace RayTraceTest.Models
             RayTuple.Point(1,1,6)
                     .Assert(point + vector);
         }
-
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Both Tuples may not be Point types")]
         public void TestAddPointPointFails()
@@ -42,7 +39,6 @@ namespace RayTraceTest.Models
             RayTuple.Point(1,1,6)
                     .Assert(point + vector);
         }
-        
         [TestMethod]
         public void TestAddVectorVectorFails()
         {
@@ -52,7 +48,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(1,1,6)
                     .Assert(vector1 + vector2);
         }
-
         [TestMethod]
         public void TestSubtractPointPointSucceeds()
         {
@@ -62,7 +57,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(-2,-4,-6)
                     .Assert(point1-point2);
         }
-
         [TestMethod]
         public void TestSubtractPointVectorSuccess()
         {
@@ -72,7 +66,6 @@ namespace RayTraceTest.Models
             RayTuple.Point(-2,-4,-6)
                     .Assert(point-vector);
         }
-
         [TestMethod]
         public void TestSubtractVectorVectorSuccess()
         {
@@ -82,7 +75,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(-2,-4,-6)
                     .Assert(vector1 - vector2);
         }
-
         [TestMethod]
         public void TestNegateVectorSuccess()
         {
@@ -91,7 +83,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(-1,2,-3)
                     .Assert(!vector);
         }
-
         [TestMethod]
         public void TestScalarMultiplicationSucceeds()
         {
@@ -100,7 +91,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(3.5, -7, 10.5)
                     .Assert(vector * 3.5);
         }
-
         [TestMethod]
         public void TestScalarFractionalMultiplicationSucceeds()
         {
@@ -109,7 +99,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(0.5, -1, 1.5)
                     .Assert(vector * 0.5);
         }
-
         [TestMethod]
         public void TestScalarDivisionSucceeds()
         {
@@ -118,7 +107,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(0.5, -1, 1.5)
                     .Assert(vector / 2);
         }
-
         [TestMethod]
         public void TestMagnitudeSucceeds()
         {
@@ -128,7 +116,6 @@ namespace RayTraceTest.Models
 
             Assert.AreEqual(expectedResult, vector.Magnitude());
         }
-
         [TestMethod]
         public void TestMagnitudeNegValuesSucceeds()
         {
@@ -138,7 +125,6 @@ namespace RayTraceTest.Models
 
             Assert.AreEqual(expectedResult, vector.Magnitude());
         }
-
         [TestMethod]
         public void TestNormalisationSucceeds()
         {
@@ -147,7 +133,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(1,0,0)
                     .Assert(tuple.Normalise());
         }
-
         [TestMethod]
         public void TestFrationalNormalisationSucceeds()
         {
@@ -156,7 +141,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(0.2672612419124244,0.5345224838248488,0.8017837257372732)
                     .Assert(tuple.Normalise());
         }
-
         [TestMethod]
         public void TestDotProductSucceeds()
         {
@@ -165,7 +149,6 @@ namespace RayTraceTest.Models
 
             Assert.AreEqual(20, vector1.DotProduct(vector2));
         }
-
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "DotProduct() - Both tuples must be vectors")]
         public void TestDotProductPointFails()
@@ -175,7 +158,6 @@ namespace RayTraceTest.Models
 
             Assert.AreEqual(20, vector1.DotProduct(vector2));
         }
-
         [TestMethod]
         public void TestCrossProductSucceeds()
         {
@@ -188,7 +170,6 @@ namespace RayTraceTest.Models
             RayTuple.Vector(1,-2,1)
                     .Assert(vector2.CrossProduct(vector1));
         }
-    
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "CrossProduct() - Both tuples must be vectors")]
         public void TestCrossProductPointFails()
@@ -202,8 +183,35 @@ namespace RayTraceTest.Models
             RayTuple.Vector(1,-2,1)
                     .Assert(vector2.CrossProduct(vector1));
         }
+        [TestMethod]
+        public void ScalePointSuccess()
+        {
+            var point = RayTuple.Point(-4,6,8);
 
-
+            RayTuple.Point(-8,18,32).Assert(point.Scale((2,3,4)));
+        }
+        [TestMethod]
+        public void ScaleVectorSuccess()
+        {
+            var vector = RayTuple.Vector(-4,6,8);
+            var scaleMatrix = Matrix.BuildScaleMatrix(2,3,4);
+            RayTuple.Vector(-8,18,32).Assert(scaleMatrix * vector);
+        }
+        [TestMethod]
+        public void ScaleInverseVectorSuccess()
+        {
+            var vector = RayTuple.Vector(-4,6,8);
+            var scaleMatrix = Matrix.BuildScaleMatrix(2,3,4);
+            var inverse = scaleMatrix.Inverse();
+            RayTuple.Vector(-2,2,2).Assert(inverse * vector);
+        }
+        [TestMethod]
+        public void ReflectionSucceeds()
+        {
+            var scaleMatrix = Matrix.BuildScaleMatrix(-1,1,1);
+            var point = RayTuple.Point(2,3,4);
+            RayTuple.Point(-2,3,4).Assert(scaleMatrix * point);
+        }
     }
 }
 

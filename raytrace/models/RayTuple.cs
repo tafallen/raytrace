@@ -27,14 +27,6 @@ namespace RayTrace.Models
         public double Y { get => coords.Y; set => coords.Y = value; }
         public double Z { get => coords.Z; set => coords.Z = value; }
 
-        public bool Equals(RayTuple other)
-        {
-            return (other.X.IsEqual(this.X) &&
-                    other.Y.IsEqual(this.Y) &&
-                    other.Z.IsEqual(this.Z) &&
-                    other.Type == this.Type);
-        }
-
         public static RayTuple operator +(RayTuple a, RayTuple b)
         {
             var t = (a.Type).Add(b.Type);
@@ -44,7 +36,6 @@ namespace RayTrace.Models
 
             return new RayTuple(x,y,z,t);
         }
-
         public static RayTuple operator -(RayTuple a, RayTuple b)
         {
             var t = (a.Type).Subtract(b.Type);
@@ -54,22 +45,18 @@ namespace RayTrace.Models
 
             return new RayTuple(x,y,z,t);
         }
-
         public static RayTuple operator !(RayTuple a)
         {
             return RayTuple.Vector(0,0,0) - a;
         }
-
         public static RayTuple operator *(RayTuple a, double multiplier)
         {
             return new RayTuple(a.X * multiplier, a.Y * multiplier, a.Z * multiplier, a.Type);
         }
-
         public static RayTuple operator /(RayTuple a, double divisor)
         {
             return new RayTuple(a.X / divisor, a.Y / divisor, a.Z / divisor, a.Type);
         }
-
         public override bool Equals(object? obj)
         {
             if( base.Equals(obj) )
@@ -79,12 +66,17 @@ namespace RayTrace.Models
             else
                 return Equals((RayTuple)obj); 
         }
-
+        public bool Equals(RayTuple other)
+        {
+            return (other.X.IsEqual(this.X) &&
+                    other.Y.IsEqual(this.Y) &&
+                    other.Z.IsEqual(this.Z) &&
+                    other.Type == this.Type);
+        }
         public override int GetHashCode()
         {
             return coords.GetHashCode() + Type.GetHashCode();
         }
-
         public override string ToString()
         {
             return $"({coords.X},{coords.Y},{coords.Z},{Type})";            

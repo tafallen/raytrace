@@ -1,20 +1,29 @@
-using RayTrace.Models;
-
 namespace RayTraceTest.Models
 {
+    using RayTrace.Models;
+    using RayTrace.Extensions;
+
     public static class RayTraceTupleAssertor
     {
         public static void Assert(this RayTuple actual, double x, double y, double z, RayTupleType type)
         {
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(type, actual.Type);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(x, actual.X,message:"x");
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(y, actual.Y,message:"y");
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(z, actual.Z,message:"z");
+            Assert(x, actual.X,message:"x");
+            Assert(y, actual.Y,message:"y");
+            Assert(z, actual.Z,message:"z");
         }
 
         public static void Assert(this RayTuple actual, RayTuple expected)
         {
             actual.Assert(expected.X, expected.Y, expected.Z, expected.Type);
+        }
+
+        public static void Assert(double expected, double actual, string message = "")
+        {
+            if(!expected.IsEqual(actual))
+            {
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail( $"Assert.IsEqual() failed. Expected:<{expected}>. Actual:<{actual}> {message}");
+            }
         }
     }
 }
