@@ -86,6 +86,15 @@ namespace RayTrace.Models
 
             return new RayTuple(result[0],result[1],result[2],b.Type);
         }
+        public static Matrix TranslationMatrix(double x, double y, double z)
+        {
+            return new Matrix(new double[,]{
+                {1,0,0,x},
+                {0,1,0,y},
+                {0,0,1,z},
+                {0,0,0,1}
+            });
+        }
         public static Matrix ScaleMatrix(double x, double y, double z)
         {
             return new Matrix(new double[,] {

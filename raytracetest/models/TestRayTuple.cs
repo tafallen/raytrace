@@ -313,6 +313,57 @@ namespace RayTraceTest.Models
             RayTuple.Point(2,3,7)
                     .Assert(shearingMatrix * point);
         }
+        [TestMethod]
+        public void MultiplyTranslationMatrixSucceeds()
+        {
+            var point = RayTuple.Point(-3,4,5);
+            var translationMatrix = Matrix.TranslationMatrix(5,-3,2);
+            RayTuple.Point(2,1,7)
+                    .Assert(translationMatrix * point);
+        }
+        [TestMethod]
+        public void MultiplyInverseTranslationMatrixSucceeds()
+        {
+            var point = RayTuple.Point(-3,4,5);
+            var translationMatrix = Matrix.TranslationMatrix(5,-3,2).Inverse();
+            RayTuple.Point(-8,7,3)
+                    .Assert(translationMatrix * point);
+        }
+        [TestMethod]
+        public void MultiplyVectorTranslationMatrixFails()
+        {
+            var vector = RayTuple.Vector(-3,4,5);
+            var translationMatrix = Matrix.TranslationMatrix(5,-3,2);
+            RayTuple.Vector(-3,4,5)
+                    .Assert(translationMatrix * vector);
+        }
+        [TestMethod]
+        public void TestTransformationsSequenceSucceeds()
+        {
+            var point = RayTuple.Point(1,0,1);
+            var rotation = Matrix.RotateXMatrix(Math.PI/2);
+            var scaling = Matrix.ScaleMatrix(5,5,5);
+            var translation = Matrix.TranslationMatrix(10,5,7);
+
+            var p2 = rotation * point;
+            RayTuple.Point(1,-1,0).Assert(p2);
+
+            var p3 = scaling * p2;
+            RayTuple.Point(5,-5,0).Assert(p3);
+
+            var p4 = translation * p3;
+            RayTuple.Point(15,0,7).Assert(p4);
+        }
+        public void TestTransformationsChainedSequenceSucceeds()
+        {
+            var point = RayTuple.Point(1,0,1);
+            var rotation = Matrix.RotateXMatrix(Math.PI/2);
+            var scaling = Matrix.ScaleMatrix(5,5,5);
+            var translation = Matrix.TranslationMatrix(10,5,7);
+
+            var t = translation * scaling * rotation;
+            RayTuple.Point(15,0,7).Assert(t * point);
+        }
     }
 }
 
