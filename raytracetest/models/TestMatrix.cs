@@ -168,9 +168,9 @@ namespace RayTraceTest.Models
         public void SubmatrixOf4x4Succeeds()
         {
             var matrix = new Matrix(new double[,] {{-6,1,1,6},{-8,5,8,6},{-1,0,8,2},{-7,1,-1,1}});
-
             var expectedResult = new Matrix(new double[,]{{-6,1,6},{-8,8,6},{-7,-1,1}});
-            Assert.AreEqual(expectedResult, matrix.Submatrix(2,1));
+
+            expectedResult.Assert(matrix.Submatrix(2,1));
         }
         [TestMethod]
         public void MinorSucceeds()
@@ -248,7 +248,7 @@ namespace RayTraceTest.Models
             Assert.AreEqual(Math.Round(cofactor/determinant,5), inverse.GetElement(3,2));
             cofactor = matrix.Cofactor(3,2);
             Assert.AreEqual(Math.Round(cofactor/determinant,5), inverse.GetElement(2,3));
-            Assert.AreEqual(expectedResult,inverse);
+            inverse.Assert(expectedResult);
         }
         [TestMethod]
         public void InvertAgainSucceeds()
@@ -279,30 +279,25 @@ namespace RayTraceTest.Models
                 {-0.02901,-0.14630,-0.10926, 0.12963},
                 { 0.17778, 0.06667,-0.26667, 0.33333}});
 
-            Assert.AreEqual(expectedResult,matrix.Inverse());
-
+            expectedResult.Assert(matrix.Inverse());
         }
-        // This kinda works but the precision isn't great.
-        // Need to implement an assertor and ensure we're not doing too mucg rounding too early...
-        // [TestMethod]
-        // public void MultiplyProductByInverse()
-        // {
-        //     var matrix1 = new Matrix(new double[,] {
-        //         { 3,-9, 7, 3},
-        //         { 3,-8, 2,-9},
-        //         {-4, 4, 4, 1},
-        //         {-6, 5,-1, 1}});
+        [TestMethod]
+        public void MultiplyProductByInverse()
+        {
+            var matrix1 = new Matrix(new double[,] {
+                { 3,-9, 7, 3},
+                { 3,-8, 2,-9},
+                {-4, 4, 4, 1},
+                {-6, 5,-1, 1}});
 
-        //     var matrix2 = new Matrix(new double[,] {
-        //         { 8, 2, 2, 2},
-        //         { 3,-1, 7, 0},
-        //         { 7, 0, 5, 4},
-        //         { 6,-2, 0, 5}});
+            var matrix2 = new Matrix(new double[,] {
+                { 8, 2, 2, 2},
+                { 3,-1, 7, 0},
+                { 7, 0, 5, 4},
+                { 6,-2, 0, 5}});
 
-        //     var matrix3 = matrix1 * matrix2;
-        //     var expectedResult = matrix3 * matrix2.Inverse();
-
-        //     Assert.AreEqual(matrix1, expectedResult);
-        // }
+            var matrix3 = matrix1 * matrix2;
+            matrix1.Assert(matrix3 * matrix2.Inverse());
+        }
     }
 }
