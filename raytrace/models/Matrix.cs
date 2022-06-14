@@ -107,6 +107,32 @@ namespace RayTrace.Models
                 {0,0,0,1}
             });
         }
+        public static Matrix RotateYMatrix(double rad)
+        {
+            var a = Math.Cos(rad);
+            var b = Math.Sin(rad);
+            var c = -Math.Sin(rad);
+
+            return new Matrix(new double[,]{
+                {a,0,b,0},
+                {0,1,0,0},
+                {c,0,a,0},
+                {0,0,0,1}
+            });
+        }
+        public static Matrix RotateZMatrix(double rad)
+        {
+            var a = Math.Cos(rad);
+            var b = -Math.Sin(rad);
+            var c = Math.Sin(rad);
+
+            return new Matrix(new double[,]{
+                {a,b,0,0},
+                {c,a,0,0},
+                {0,0,1,0},
+                {0,0,0,1}
+            });
+        }
         public Matrix Transpose()
         {
             var result = new Matrix((GetDimensions().y,GetDimensions().x));
