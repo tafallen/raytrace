@@ -259,6 +259,60 @@ namespace RayTraceTest.Models
                     .Assert(full_q * point);
 
         }
+        [TestMethod]
+        public void ShearXInProportionYSucceeds()
+        {
+            var point = RayTuple.Point(2,3,4);
+            var shearingMatrix = Matrix.ShearingMatrix(1,0,0,0,0,0);
+
+            RayTuple.Point(5,3,4)
+                    .Assert(shearingMatrix * point);
+        }
+        [TestMethod]
+        public void ShearXInProportionZSucceeds()
+        {
+            var point = RayTuple.Point(2,3,4);
+            var shearingMatrix = Matrix.ShearingMatrix(0,1,0,0,0,0);
+
+            RayTuple.Point(6,3,4)
+                    .Assert(shearingMatrix * point);
+        }
+        [TestMethod]
+        public void ShearYInProportionXSucceeds()
+        {
+            var point = RayTuple.Point(2,3,4);
+            var shearingMatrix = Matrix.ShearingMatrix(0,0,1,0,0,0);
+
+            RayTuple.Point(2,5,4)
+                    .Assert(shearingMatrix * point);
+        }
+        [TestMethod]
+        public void ShearYInProportionZSucceeds()
+        {
+            var point = RayTuple.Point(2,3,4);
+            var shearingMatrix = Matrix.ShearingMatrix(0,0,0,1,0,0);
+
+            RayTuple.Point(2,7,4)
+                    .Assert(shearingMatrix * point);
+        }
+        [TestMethod]
+        public void ShearZInProportionXSucceeds()
+        {
+            var point = RayTuple.Point(2,3,4);
+            var shearingMatrix = Matrix.ShearingMatrix(0,0,0,0,1,0);
+
+            RayTuple.Point(2,3,6)
+                    .Assert(shearingMatrix * point);
+        }
+        [TestMethod]
+        public void ShearZInProportionYSucceeds()
+        {
+            var point = RayTuple.Point(2,3,4);
+            var shearingMatrix = Matrix.ShearingMatrix(0,0,0,0,0,1);
+
+            RayTuple.Point(2,3,7)
+                    .Assert(shearingMatrix * point);
+        }
     }
 }
 
