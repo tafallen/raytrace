@@ -17,7 +17,7 @@ namespace RayTraceTest.Models
             Assert.AreEqual(point, ray.Point);
         }
         [TestMethod]
-        public void TestPostion()
+        public void TestPostionSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
             var direction = RayTuple.Vector(1,0,0);
@@ -32,5 +32,51 @@ namespace RayTraceTest.Models
             var p4 = ray.Position(2.5);
             RayTuple.Point(4.5,3,4).Assert(p4);
         }
+        [TestMethod]
+        public void TestRaySphereIntersectSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(0,0,-5),RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var xs = sphere.Intersect(ray);
+
+            Assert.IsNotNull(xs);
+            Assert.AreEqual(2, xs.Length);
+            Assert.AreEqual(4.0, xs[0]);
+            Assert.AreEqual(6.0, xs[1]);
+        }
+        [TestMethod]
+        public void TestRaySphereTangentSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(0,1,-5),RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var xs = sphere.Intersect(ray);
+
+            Assert.IsNotNull(xs);
+            Assert.AreEqual(2, xs.Length);
+            Assert.AreEqual(5.0, xs[0]);
+            Assert.AreEqual(5.0, xs[1]);
+        }
+        [TestMethod]
+        public void TestRaySphereMissSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(0,2,-5),RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var xs = sphere.Intersect(ray);
+
+            Assert.IsNotNull(xs);
+            Assert.AreEqual(0, xs.Length);
+        }
+        [TestMethod]
+        public void TestRaySphereRayOriginCentreSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(0,0,0),RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var xs = sphere.Intersect(ray);
+
+            Assert.IsNotNull(xs);
+            Assert.AreEqual(2, xs.Length);
+            Assert.AreEqual(-1.0, xs[0]);
+            Assert.AreEqual(1.0, xs[1]);
+        }        
     }
 }
