@@ -2,7 +2,7 @@ namespace RayTrace.Models
 {
     using RayTrace.Extensions;
 
-    public class Sphere
+    public class Sphere : Element
     {
         public RayTuple Origin{ get; set;}
         public double Radius {get; set;}

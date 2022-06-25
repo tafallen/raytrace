@@ -3,7 +3,7 @@ namespace RayTraceTest.Models
     using RayTrace.Models;
     using RayTrace.Extensions;
 
-    public static class RayTraceTupleAssertor
+    public static class RayTupleAssertor
     {
         public static void Assert(this RayTuple actual, double x, double y, double z, RayTupleType type)
         {
