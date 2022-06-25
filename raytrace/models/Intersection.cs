@@ -1,6 +1,6 @@
 namespace RayTrace.Models
 {
-    public class Intersection
+    public class Intersection : IComparable<Intersection>
     {
         public double T {get; set;}
         public Element Element {get; set;}
@@ -8,6 +8,16 @@ namespace RayTrace.Models
         {   
             T = t;
             Element = element;
+        }
+
+        public int CompareTo(Intersection? other)
+        {
+            return T.CompareTo(other.T);
+        }
+
+        public override string ToString()
+        {
+            return $"Intersection( T: {T}, Element: {Element} )";
         }
     }
 }

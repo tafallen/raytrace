@@ -40,9 +40,9 @@ namespace RayTraceTest.Models
             var xs = sphere.Intersect(ray);
 
             Assert.IsNotNull(xs);
-            Assert.AreEqual(2, xs.Length);
-            Assert.AreEqual(4.0, xs[0]);
-            Assert.AreEqual(6.0, xs[1]);
+            Assert.AreEqual(2, xs.Count);
+            Assert.AreEqual(4.0, xs[0].T);
+            Assert.AreEqual(6.0, xs[1].T);
         }
         [TestMethod]
         public void TestRaySphereTangentSucceeds()
@@ -52,9 +52,9 @@ namespace RayTraceTest.Models
             var xs = sphere.Intersect(ray);
 
             Assert.IsNotNull(xs);
-            Assert.AreEqual(2, xs.Length);
-            Assert.AreEqual(5.0, xs[0]);
-            Assert.AreEqual(5.0, xs[1]);
+            Assert.AreEqual(2, xs.Count);
+            Assert.AreEqual(5.0, xs[0].T);
+            Assert.AreEqual(5.0, xs[1].T);
         }
         [TestMethod]
         public void TestRaySphereMissSucceeds()
@@ -64,7 +64,7 @@ namespace RayTraceTest.Models
             var xs = sphere.Intersect(ray);
 
             Assert.IsNotNull(xs);
-            Assert.AreEqual(0, xs.Length);
+            Assert.AreEqual(0, xs.Count);
         }
         [TestMethod]
         public void TestRaySphereRayOriginCentreSucceeds()
@@ -74,9 +74,28 @@ namespace RayTraceTest.Models
             var xs = sphere.Intersect(ray);
 
             Assert.IsNotNull(xs);
-            Assert.AreEqual(2, xs.Length);
-            Assert.AreEqual(-1.0, xs[0]);
-            Assert.AreEqual(1.0, xs[1]);
-        }        
+            Assert.AreEqual(2, xs.Count);
+            Assert.AreEqual(-1.0, xs[0].T);
+            Assert.AreEqual(1.0, xs[1].T);
+        }      
+        [TestMethod]
+        public void TestIntersectionsListSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(0,0,0),RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var xs = sphere.Intersect(ray);
+
+            Assert.IsNotNull(xs);
+            Assert.AreEqual(2, xs.Count);
+            Assert.AreEqual(-1.0, xs[0].T);
+            Assert.AreEqual(sphere, xs[0].Element);
+            Assert.AreEqual(1.0, xs[1].T);
+            Assert.AreEqual(sphere, xs[1].Element);
+        }
+        [TestInitialize]
+        public void Setup()
+        {
+            Intersections.List.Clear();
+        }  
     }
 }

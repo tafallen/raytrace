@@ -12,7 +12,7 @@ namespace RayTrace.Models
             Origin = RayTuple.Point(0,0,0);
             Radius = 1;
         }
-        public double[] Intersect(Ray ray)
+        public Intersections Intersect(Ray ray)
         {
             var sphere_to_ray = ray.Point - Origin;
             var a = ray.Direction.DotProduct(ray.Direction);
@@ -21,12 +21,15 @@ namespace RayTrace.Models
             var discriminant = (b * b) - 4 * a * c;
 
             if( discriminant < 0)
-                return new double[]{};
+                return Intersections.List;
 
             var t1 = (-b - Math.Sqrt(discriminant)) / (2*a);
             var t2 = (-b + Math.Sqrt(discriminant)) / (2*a);
 
-            return new double[]{t1,t2};
+            Intersections.List.Add(new Intersection(t1, this));
+            Intersections.List.Add(new Intersection(t2, this));
+
+            return Intersections.List;
         }
     }
 }
