@@ -46,7 +46,7 @@ namespace RayTrace.Models
         {
             if( a.GetDimensions().x != b.GetDimensions().x ||
                 a.GetDimensions().y != b.GetDimensions().y)
-                throw new ArgumentException(" operator *() - The two matricies did not have the same dimensions");
+                throw new ArgumentException("operator *() - The two matricies did not have the same dimensions");
 
             var result = new Matrix(a.GetDimensions());
             for(var i = 0; i<a.GetDimensions().x; i++)
@@ -70,7 +70,6 @@ namespace RayTrace.Models
                             a.GetElement(j,2) * b[2] + 
                             a.GetElement(j,3) * b[3];
             }
-
             return result;
         }
         public static RayTuple operator *(Matrix a, RayTuple b)
@@ -83,7 +82,6 @@ namespace RayTrace.Models
                             a.GetElement(j,2) * b.Z + 
                             a.GetElement(j,3) * (int)b.Type;
             }
-
             return new RayTuple(result[0],result[1],result[2],b.Type);
         }
         public static Matrix TranslationMatrix(double x, double y, double z)
