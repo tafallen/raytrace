@@ -1,5 +1,6 @@
 namespace RayTraceTest.Models
 {
+    using RayTrace.Extensions;    
     using RayTrace.Models;
     using RayTraceTest.Assertors;
 
@@ -15,42 +16,42 @@ namespace RayTraceTest.Models
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),"GetElement() - x and y must be in the bounds of the matrix")]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void GetElementXZeroFails()
         {
             var matrix = new Matrix(new double[4,4] );
-            matrix.GetElement(-1,1);
+            var x = matrix[-1,1];
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),"GetElement() - x and y must be in the bounds of the matrix")]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void GetElementXGreaterThanLengthFails()
         {
             var matrix = new Matrix(new double[4,4] );
-            matrix.GetElement(7,1);
+            var x = matrix[7,1];
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),"GetElement() - x and y must be in the bounds of the matrix")]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void GetElementYZeroFails()
         {
             var matrix = new Matrix(new double[4,4] );
-            matrix.GetElement(1,-1);
+            var x = matrix[1,-1];
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),"GetElement() - x and y must be in the bounds of the matrix")]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
         public void GetElementYGreaterThanLengthFails()
         {
             var matrix = new Matrix(new double[4,4] );
-            matrix.GetElement(1,7);
+            var x = matrix[1,7];
         }
                 
         [TestMethod]
         public void GetElementSucceeds()
         {
             var matrix = new Matrix(new double[4,4] {{1,2,3,4},{5.5,6.5,7.5,8.5},{9,10,11,12},{13.5,14.5,15.5,16.5}});
-            Assert.AreEqual(4,matrix.GetElement(0,3));
+            Assert.AreEqual(4,matrix[0,3]);
         }
         [TestMethod]
         public void EqualsFails()
@@ -246,9 +247,9 @@ namespace RayTraceTest.Models
             var cofactor = matrix.Cofactor(2,3);
             Assert.AreEqual(532,determinant);
             Assert.AreEqual(-160, cofactor);
-            Assert.AreEqual(Math.Round(cofactor/determinant,5), inverse.GetElement(3,2));
+            Assert.AreEqual(Math.Round(cofactor/determinant,5), inverse[3,2]);
             cofactor = matrix.Cofactor(3,2);
-            Assert.AreEqual(Math.Round(cofactor/determinant,5), inverse.GetElement(2,3));
+            Assert.AreEqual(Math.Round(cofactor/determinant,5), inverse[2,3]);
             inverse.Assert(expectedResult);
         }
         [TestMethod]

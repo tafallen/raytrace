@@ -6,6 +6,7 @@ namespace RayTrace.Models
     {
         public RayTuple Point{get; private set;}
         public RayTuple Direction{get; private set;}
+        public Transform? Transform{get; set;}
 
         public Ray( RayTuple point, RayTuple direction)
         {
@@ -15,8 +16,8 @@ namespace RayTrace.Models
                 direction.Type != RayTupleType.Vector)
                 throw new ArgumentException("Ray() constructor arguments cannot be null");
 
-            this.Point = point;
-            this.Direction = direction;
+            Point = point;
+            Direction = direction;
         }
     }
 }

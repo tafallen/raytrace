@@ -15,8 +15,8 @@ namespace RayTraceTest.Assertors
         }
         public static void Assert(Matrix expected, Matrix actual, int i, int j)//string message = "")
         {
-            var e = expected.GetElement(i,j) ;
-            var a = actual.GetElement(i,j);
+            var e = expected[i,j];
+            var a = actual[i,j];
 
             if(!e.IsEqual(a))
             {

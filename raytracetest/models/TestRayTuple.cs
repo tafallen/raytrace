@@ -196,33 +196,33 @@ namespace RayTraceTest.Models
         public void ScaleVectorSuccess()
         {
             var vector = RayTuple.Vector(-4,6,8);
-            var scaleMatrix = Matrix.ScaleMatrix(2,3,4);
+            var scaleMatrix = ScalingTransform.ScaleMatrix(2,3,4);
             RayTuple.Vector(-8,18,32)
-                    .Assert(scaleMatrix * vector);
+                    .Assert(scaleMatrix.Matrix * vector);
         }
         [TestMethod]
         public void ScaleInverseVectorSuccess()
         {
             var vector = RayTuple.Vector(-4,6,8);
-            var scaleMatrix = Matrix.ScaleMatrix(2,3,4);
-            var inverse = scaleMatrix.Inverse();
+            var scaleMatrix = ScalingTransform.ScaleMatrix(2,3,4);
+            var inverse = scaleMatrix.Inverse().Matrix;
             RayTuple.Vector(-2,2,2)
                     .Assert(inverse * vector);
         }
         [TestMethod]
         public void ReflectionSucceeds()
         {
-            var scaleMatrix = Matrix.ScaleMatrix(-1,1,1);
             var point = RayTuple.Point(2,3,4);
+            var scaleMatrix = ScalingTransform.ScaleMatrix(-1,1,1);
             RayTuple.Point(-2,3,4)
-                    .Assert(scaleMatrix * point);
+                    .Assert(scaleMatrix.Matrix * point);
         }
         [TestMethod]
         public void RotateXSucceeds()
         {
             var point = RayTuple.Point(0,1,0);
-            var half_q = Matrix.RotateXMatrix(Math.PI/4);
-            var full_q = Matrix.RotateXMatrix(Math.PI/2);
+            var half_q = RotateXTransform.RotateXMatrix(Math.PI/4).Matrix;
+            var full_q = RotateXTransform.RotateXMatrix(Math.PI/2).Matrix;
 
             RayTuple.Point(0,(Math.Sqrt(2)/2),(Math.Sqrt(2)/2))
                     .Assert(half_q * point);
@@ -233,7 +233,7 @@ namespace RayTraceTest.Models
         public void InverseRotateXSucceeds()
         {
             var point = RayTuple.Point(0,1,0);
-            var half_q = Matrix.RotateXMatrix(Math.PI/4).Inverse();
+            var half_q = RotateXTransform.RotateXMatrix(Math.PI/4).Inverse().Matrix;
             RayTuple.Point(0,(Math.Sqrt(2)/2),-((Math.Sqrt(2)/2)))
                     .Assert(half_q * point);
         }
@@ -241,8 +241,8 @@ namespace RayTraceTest.Models
         public void RotateYSucceeds()
         {
             var point = RayTuple.Point(0,0,1);
-            var half_q = Matrix.RotateYMatrix(Math.PI/4);
-            var full_q = Matrix.RotateYMatrix(Math.PI/2);
+            var half_q = RotateYTransform.RotateYMatrix(Math.PI/4).Matrix;
+            var full_q = RotateYTransform.RotateYMatrix(Math.PI/2).Matrix;
             RayTuple.Point((Math.Sqrt(2)/2),0,(Math.Sqrt(2)/2))
                     .Assert(half_q * point);
             RayTuple.Point(1,0,0)
@@ -252,8 +252,8 @@ namespace RayTraceTest.Models
         public void RotateZSucceeds()
         {
             var point = RayTuple.Point(0,1,0);
-            var half_q = Matrix.RotateZMatrix(Math.PI/4);
-            var full_q = Matrix.RotateZMatrix(Math.PI/2);
+            var half_q = RotateZTransform.RotateZMatrix(Math.PI/4).Matrix;
+            var full_q = RotateZTransform.RotateZMatrix(Math.PI/2).Matrix;
             RayTuple.Point(-(Math.Sqrt(2)/2),(Math.Sqrt(2)/2),0)
                     .Assert(half_q * point);
             RayTuple.Point(-1,0,0)
@@ -264,7 +264,7 @@ namespace RayTraceTest.Models
         public void ShearXInProportionYSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = Matrix.ShearingMatrix(1,0,0,0,0,0);
+            var shearingMatrix = ShearingTransform.ShearingMatrix(1,0,0,0,0,0).Matrix;
 
             RayTuple.Point(5,3,4)
                     .Assert(shearingMatrix * point);
@@ -273,7 +273,7 @@ namespace RayTraceTest.Models
         public void ShearXInProportionZSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = Matrix.ShearingMatrix(0,1,0,0,0,0);
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,1,0,0,0,0).Matrix;
 
             RayTuple.Point(6,3,4)
                     .Assert(shearingMatrix * point);
@@ -282,7 +282,7 @@ namespace RayTraceTest.Models
         public void ShearYInProportionXSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = Matrix.ShearingMatrix(0,0,1,0,0,0);
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,1,0,0,0).Matrix;
 
             RayTuple.Point(2,5,4)
                     .Assert(shearingMatrix * point);
@@ -291,7 +291,7 @@ namespace RayTraceTest.Models
         public void ShearYInProportionZSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = Matrix.ShearingMatrix(0,0,0,1,0,0);
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,1,0,0).Matrix;
 
             RayTuple.Point(2,7,4)
                     .Assert(shearingMatrix * point);
@@ -300,7 +300,7 @@ namespace RayTraceTest.Models
         public void ShearZInProportionXSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = Matrix.ShearingMatrix(0,0,0,0,1,0);
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,0,1,0).Matrix;
 
             RayTuple.Point(2,3,6)
                     .Assert(shearingMatrix * point);
@@ -309,7 +309,7 @@ namespace RayTraceTest.Models
         public void ShearZInProportionYSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = Matrix.ShearingMatrix(0,0,0,0,0,1);
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,0,0,1).Matrix;
 
             RayTuple.Point(2,3,7)
                     .Assert(shearingMatrix * point);
@@ -318,7 +318,7 @@ namespace RayTraceTest.Models
         public void MultiplyTranslationMatrixSucceeds()
         {
             var point = RayTuple.Point(-3,4,5);
-            var translationMatrix = Matrix.TranslationMatrix(5,-3,2);
+            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Matrix;
             RayTuple.Point(2,1,7)
                     .Assert(translationMatrix * point);
         }
@@ -326,7 +326,7 @@ namespace RayTraceTest.Models
         public void MultiplyInverseTranslationMatrixSucceeds()
         {
             var point = RayTuple.Point(-3,4,5);
-            var translationMatrix = Matrix.TranslationMatrix(5,-3,2).Inverse();
+            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Inverse().Matrix;
             RayTuple.Point(-8,7,3)
                     .Assert(translationMatrix * point);
         }
@@ -334,7 +334,7 @@ namespace RayTraceTest.Models
         public void MultiplyVectorTranslationMatrixFails()
         {
             var vector = RayTuple.Vector(-3,4,5);
-            var translationMatrix = Matrix.TranslationMatrix(5,-3,2);
+            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Matrix;
             RayTuple.Vector(-3,4,5)
                     .Assert(translationMatrix * vector);
         }
@@ -342,9 +342,9 @@ namespace RayTraceTest.Models
         public void TestTransformationsSequenceSucceeds()
         {
             var point = RayTuple.Point(1,0,1);
-            var rotation = Matrix.RotateXMatrix(Math.PI/2);
-            var scaling = Matrix.ScaleMatrix(5,5,5);
-            var translation = Matrix.TranslationMatrix(10,5,7);
+            var rotation = RotateXTransform.RotateXMatrix(Math.PI/2).Matrix;
+            var scaling = ScalingTransform.ScaleMatrix(5,5,5).Matrix;
+            var translation = TranslationTransform.TranslationMatrix(10,5,7).Matrix;
 
             var p2 = rotation * point;
             RayTuple.Point(1,-1,0).Assert(p2);
@@ -358,9 +358,9 @@ namespace RayTraceTest.Models
         public void TestTransformationsChainedSequenceSucceeds()
         {
             var point = RayTuple.Point(1,0,1);
-            var rotation = Matrix.RotateXMatrix(Math.PI/2);
-            var scaling = Matrix.ScaleMatrix(5,5,5);
-            var translation = Matrix.TranslationMatrix(10,5,7);
+            var rotation = RotateXTransform.RotateXMatrix(Math.PI/2).Matrix;
+            var scaling = ScalingTransform.ScaleMatrix(5,5,5).Matrix;
+            var translation = TranslationTransform.TranslationMatrix(10,5,7).Matrix;
 
             var t = translation * scaling * rotation;
             RayTuple.Point(15,0,7).Assert(t * point);
