@@ -40,15 +40,5 @@ namespace RayTrace.Extensions
 
             return RayTuple.Vector(x,y,z);
         }
-
-        public static RayTuple Scale(this RayTuple a, (double x, double y, double z) scale)
-        {
-            return new RayTuple (a.X * scale.x, a.Y * scale.y, a.Z * scale.z, a.Type);
-        }
-//         public static RayTuple Scale(this RayTuple a, Matrix b)
-//         {
-// //            return new RayTuple (a.X * b.x, a.Y * b.y, a.Z * b.z, a.Type);
-//             return a * b;
-//         }
     }
 }

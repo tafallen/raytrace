@@ -1,15 +1,18 @@
 namespace RayTrace.Models
 {
+    using RayTrace.Transforms;
     using RayTrace.Extensions;
 
     public class Ray
     {
         public RayTuple Point{get; private set;}
         public RayTuple Direction{get; private set;}
-        public Transform? Transform{get; set;}
+        public BasicTransform Transform{get; set;}
 
         public Ray( RayTuple point, RayTuple direction)
         {
+            Transform = BasicTransform.NullTransform;
+
             if( point == null || 
                 direction == null || 
                 point.Type != RayTupleType.Point || 

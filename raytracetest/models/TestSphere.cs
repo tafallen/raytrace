@@ -2,6 +2,7 @@ namespace RayTraceTest.Models
 {
     using RayTrace.Models;
     using RayTrace.Extensions;
+    using RayTrace.Transforms;
     using RayTraceTest.Assertors;
 
 
@@ -18,26 +19,25 @@ namespace RayTraceTest.Models
         public void SetTransformationSucceeds()
         {
             var sphere = new Sphere();
-            var matrix = new Matrix(new double[,] {{2,3,4}});
+            var transform = TranslationTransform.TranslationMatrix(2,3,4);;
 
-            sphere.Transform = TranslationTransform.TranslationMatrix(2,3,4);
-            
-            TranslationTransform.TranslationMatrix(2,3,4)
-                                .Assert(sphere.Transform);
+            sphere.Transform = transform;
+
+            Assert.AreEqual(transform, sphere.Transform);
         }
-        // [TestMethod]
-        // public void IntersectScaledSphereWithRaySucceeds()
-        // {
-        //     var ray = new Ray(RayTuple.Point(0,0,-5),RayTuple.Vector(0,0,1));
-        //     var sphere = new Sphere();
+        [TestMethod]
+        public void IntersectScaledSphereWithRaySucceeds()
+        {
+            var sphere = new Sphere();
+            var ray = new Ray(RayTuple.Point(0,0,-5),RayTuple.Vector(0,0,1));
+            var scaling = ScalingTransform.ScaleMatrix(2,2,2);
+            sphere.Transform = scaling;
 
-        //     sphere.Transform = ScalingTransform.ScaleMatrix(2,2,2);
+            // var scaledRay = scaling.Inverse().Transform(ray);
+            // var intersects = sphere.Intersect(scaledRay);
+            var intersects = sphere.Intersect(ray);
 
-        //     var rayTransform = ((ScalingTransform)sphere.Transform).Inverse();
-        //     // var scaledRay = ray.Scale(rayTransform);
-
-        //     // var intersections = sphere.Intersect(scaledRay);
-        //     // Assert.Fail();
-        // }
+            Assert.AreEqual(2, intersects.Count);
+        }
     }
 }

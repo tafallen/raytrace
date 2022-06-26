@@ -11,7 +11,6 @@ namespace RayTrace.Extensions
             {
                 for(var i=0; i<m.GetDimensions().y;i++ )
                     result = result + m[0,i] * m.Cofactor(0,i);
-                    // result = result + m.GetElement(0,i) * m.Cofactor(0,i);
             }
             else
             {

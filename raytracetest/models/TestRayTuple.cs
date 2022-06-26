@@ -2,6 +2,7 @@ namespace RayTraceTest.Models
 {
     using RayTrace.Models;
     using RayTrace.Extensions;
+    using RayTrace.Transforms;
     using RayTraceTest.Assertors;
 
     [TestClass]
@@ -135,7 +136,7 @@ namespace RayTraceTest.Models
                     .Assert(tuple.Normalise());
         }
         [TestMethod]
-        public void TestFrationalNormalisationSucceeds()
+        public void TestFractionalNormalisationSucceeds()
         {
             var tuple = RayTuple.Vector(1,2,3);
  
@@ -184,13 +185,14 @@ namespace RayTraceTest.Models
             RayTuple.Vector(1,-2,1)
                     .Assert(vector2.CrossProduct(vector1));
         }
-        [TestMethod]
+        [TestMethod] // TODO: Move to transform tests class
         public void ScalePointSuccess()
         {
             var point = RayTuple.Point(-4,6,8);
+            var transform = ScalingTransform.ScaleMatrix(2,3,4);
 
             RayTuple.Point(-8,18,32)
-                    .Assert(point.Scale((2,3,4)));
+                    .Assert(transform.Transform(point));
         }
         [TestMethod]
         public void ScaleVectorSuccess()
@@ -198,16 +200,15 @@ namespace RayTraceTest.Models
             var vector = RayTuple.Vector(-4,6,8);
             var scaleMatrix = ScalingTransform.ScaleMatrix(2,3,4);
             RayTuple.Vector(-8,18,32)
-                    .Assert(scaleMatrix.Matrix * vector);
+                    .Assert(scaleMatrix.Transform(vector));
         }
         [TestMethod]
         public void ScaleInverseVectorSuccess()
         {
             var vector = RayTuple.Vector(-4,6,8);
             var scaleMatrix = ScalingTransform.ScaleMatrix(2,3,4);
-            var inverse = scaleMatrix.Inverse().Matrix;
             RayTuple.Vector(-2,2,2)
-                    .Assert(inverse * vector);
+                    .Assert(scaleMatrix.Inverse().Transform(vector));
         }
         [TestMethod]
         public void ReflectionSucceeds()
@@ -215,155 +216,155 @@ namespace RayTraceTest.Models
             var point = RayTuple.Point(2,3,4);
             var scaleMatrix = ScalingTransform.ScaleMatrix(-1,1,1);
             RayTuple.Point(-2,3,4)
-                    .Assert(scaleMatrix.Matrix * point);
+                    .Assert(scaleMatrix.Transform(point));
         }
         [TestMethod]
         public void RotateXSucceeds()
         {
             var point = RayTuple.Point(0,1,0);
-            var half_q = RotateXTransform.RotateXMatrix(Math.PI/4).Matrix;
-            var full_q = RotateXTransform.RotateXMatrix(Math.PI/2).Matrix;
+            var half_q = RotateXTransform.RotateXMatrix(Math.PI/4);
+            var full_q = RotateXTransform.RotateXMatrix(Math.PI/2);
 
             RayTuple.Point(0,(Math.Sqrt(2)/2),(Math.Sqrt(2)/2))
-                    .Assert(half_q * point);
+                    .Assert(half_q.Transform(point));
             RayTuple.Point(0,0,1)
-                    .Assert(full_q * point);
+                    .Assert(full_q.Transform(point));
         }
         [TestMethod]
         public void InverseRotateXSucceeds()
         {
             var point = RayTuple.Point(0,1,0);
-            var half_q = RotateXTransform.RotateXMatrix(Math.PI/4).Inverse().Matrix;
+            var half_q = RotateXTransform.RotateXMatrix(Math.PI/4).Inverse();
             RayTuple.Point(0,(Math.Sqrt(2)/2),-((Math.Sqrt(2)/2)))
-                    .Assert(half_q * point);
+                    .Assert(half_q.Transform(point));
         }
         [TestMethod]
         public void RotateYSucceeds()
         {
             var point = RayTuple.Point(0,0,1);
-            var half_q = RotateYTransform.RotateYMatrix(Math.PI/4).Matrix;
-            var full_q = RotateYTransform.RotateYMatrix(Math.PI/2).Matrix;
+            var half_q = RotateYTransform.RotateYMatrix(Math.PI/4);
+            var full_q = RotateYTransform.RotateYMatrix(Math.PI/2);
             RayTuple.Point((Math.Sqrt(2)/2),0,(Math.Sqrt(2)/2))
-                    .Assert(half_q * point);
+                    .Assert(half_q.Transform(point));
             RayTuple.Point(1,0,0)
-                    .Assert(full_q * point);
+                    .Assert(full_q.Transform(point));
         }
         [TestMethod]
         public void RotateZSucceeds()
         {
             var point = RayTuple.Point(0,1,0);
-            var half_q = RotateZTransform.RotateZMatrix(Math.PI/4).Matrix;
-            var full_q = RotateZTransform.RotateZMatrix(Math.PI/2).Matrix;
+            var half_q = RotateZTransform.RotateZMatrix(Math.PI/4);
+            var full_q = RotateZTransform.RotateZMatrix(Math.PI/2);
             RayTuple.Point(-(Math.Sqrt(2)/2),(Math.Sqrt(2)/2),0)
-                    .Assert(half_q * point);
+                    .Assert(half_q.Transform(point));
             RayTuple.Point(-1,0,0)
-                    .Assert(full_q * point);
+                    .Assert(full_q.Transform(point));
 
         }
         [TestMethod]
         public void ShearXInProportionYSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = ShearingTransform.ShearingMatrix(1,0,0,0,0,0).Matrix;
+            var shearingMatrix = ShearingTransform.ShearingMatrix(1,0,0,0,0,0);
 
             RayTuple.Point(5,3,4)
-                    .Assert(shearingMatrix * point);
+                    .Assert(shearingMatrix.Transform(point));
         }
         [TestMethod]
         public void ShearXInProportionZSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = ShearingTransform.ShearingMatrix(0,1,0,0,0,0).Matrix;
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,1,0,0,0,0);
 
             RayTuple.Point(6,3,4)
-                    .Assert(shearingMatrix * point);
+                    .Assert(shearingMatrix.Transform(point));
         }
         [TestMethod]
         public void ShearYInProportionXSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,1,0,0,0).Matrix;
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,1,0,0,0);
 
             RayTuple.Point(2,5,4)
-                    .Assert(shearingMatrix * point);
+                    .Assert(shearingMatrix.Transform(point));
         }
         [TestMethod]
         public void ShearYInProportionZSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,1,0,0).Matrix;
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,1,0,0);
 
             RayTuple.Point(2,7,4)
-                    .Assert(shearingMatrix * point);
+                    .Assert(shearingMatrix.Transform(point));
         }
         [TestMethod]
         public void ShearZInProportionXSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,0,1,0).Matrix;
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,0,1,0);
 
             RayTuple.Point(2,3,6)
-                    .Assert(shearingMatrix * point);
+                    .Assert(shearingMatrix.Transform(point));
         }
         [TestMethod]
         public void ShearZInProportionYSucceeds()
         {
             var point = RayTuple.Point(2,3,4);
-            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,0,0,1).Matrix;
+            var shearingMatrix = ShearingTransform.ShearingMatrix(0,0,0,0,0,1);
 
             RayTuple.Point(2,3,7)
-                    .Assert(shearingMatrix * point);
+                    .Assert(shearingMatrix.Transform(point));
         }
         [TestMethod]
         public void MultiplyTranslationMatrixSucceeds()
         {
             var point = RayTuple.Point(-3,4,5);
-            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Matrix;
+            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2);
             RayTuple.Point(2,1,7)
-                    .Assert(translationMatrix * point);
+                    .Assert(translationMatrix.Transform(point));
         }
         [TestMethod]
         public void MultiplyInverseTranslationMatrixSucceeds()
         {
             var point = RayTuple.Point(-3,4,5);
-            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Inverse().Matrix;
+            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Inverse();
             RayTuple.Point(-8,7,3)
-                    .Assert(translationMatrix * point);
+                    .Assert(translationMatrix.Transform(point));
         }
         [TestMethod]
         public void MultiplyVectorTranslationMatrixFails()
         {
             var vector = RayTuple.Vector(-3,4,5);
-            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2).Matrix;
+            var translationMatrix = TranslationTransform.TranslationMatrix(5,-3,2);
             RayTuple.Vector(-3,4,5)
-                    .Assert(translationMatrix * vector);
+                    .Assert(translationMatrix.Transform(vector));
         }
         [TestMethod]
         public void TestTransformationsSequenceSucceeds()
         {
             var point = RayTuple.Point(1,0,1);
-            var rotation = RotateXTransform.RotateXMatrix(Math.PI/2).Matrix;
-            var scaling = ScalingTransform.ScaleMatrix(5,5,5).Matrix;
-            var translation = TranslationTransform.TranslationMatrix(10,5,7).Matrix;
+            var rotation = RotateXTransform.RotateXMatrix(Math.PI/2);
+            var scaling = ScalingTransform.ScaleMatrix(5,5,5);
+            var translation = TranslationTransform.TranslationMatrix(10,5,7);
 
-            var p2 = rotation * point;
+            var p2 = rotation.Transform(point);
             RayTuple.Point(1,-1,0).Assert(p2);
 
-            var p3 = scaling * p2;
+            var p3 = scaling.Transform(p2);
             RayTuple.Point(5,-5,0).Assert(p3);
 
-            var p4 = translation * p3;
+            var p4 = translation.Transform(p3);
             RayTuple.Point(15,0,7).Assert(p4);
         }
         public void TestTransformationsChainedSequenceSucceeds()
         {
             var point = RayTuple.Point(1,0,1);
-            var rotation = RotateXTransform.RotateXMatrix(Math.PI/2).Matrix;
-            var scaling = ScalingTransform.ScaleMatrix(5,5,5).Matrix;
-            var translation = TranslationTransform.TranslationMatrix(10,5,7).Matrix;
+            var rotation = RotateXTransform.RotateXMatrix(Math.PI/2);
+            var scaling = ScalingTransform.ScaleMatrix(5,5,5);
+            var translation = TranslationTransform.TranslationMatrix(10,5,7);
 
             var t = translation * scaling * rotation;
-            RayTuple.Point(15,0,7).Assert(t * point);
+            RayTuple.Point(15,0,7).Assert(t.Transform(point));
         }
     }
 }

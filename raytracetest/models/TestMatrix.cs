@@ -14,41 +14,36 @@ namespace RayTraceTest.Models
             Assert.IsNotNull(matrix);
             Assert.IsInstanceOfType(matrix, typeof(Matrix));
         }
-
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void GetElementXZeroFails()
+        public void IndexerXZeroFails()
         {
             var matrix = new Matrix(new double[4,4] );
             var x = matrix[-1,1];
         }
-
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void GetElementXGreaterThanLengthFails()
+        public void IndexerXGreaterThanLengthFails()
         {
             var matrix = new Matrix(new double[4,4] );
             var x = matrix[7,1];
         }
-
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void GetElementYZeroFails()
+        public void IndexerYZeroFails()
         {
             var matrix = new Matrix(new double[4,4] );
             var x = matrix[1,-1];
         }
-
         [TestMethod]
         [ExpectedException(typeof(IndexOutOfRangeException))]
-        public void GetElementYGreaterThanLengthFails()
+        public void IndexerYGreaterThanLengthFails()
         {
             var matrix = new Matrix(new double[4,4] );
             var x = matrix[1,7];
         }
-                
         [TestMethod]
-        public void GetElementSucceeds()
+        public void IndexerSucceeds()
         {
             var matrix = new Matrix(new double[4,4] {{1,2,3,4},{5.5,6.5,7.5,8.5},{9,10,11,12},{13.5,14.5,15.5,16.5}});
             Assert.AreEqual(4,matrix[0,3]);

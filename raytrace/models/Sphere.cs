@@ -1,18 +1,18 @@
 namespace RayTrace.Models
 {
-    using RayTrace.Extensions;
+    using RayTrace.Transforms;
 
     public class Sphere : Element
     {
         public RayTuple Origin{ get; set;}
         public double Radius {get; set;}
-        public Transform Transform {get; set;} 
+        public BasicTransform Transform {get; set;} 
         
         public Sphere()
         {
             Origin = RayTuple.Point(0,0,0);
             Radius = 1;
-            Transform = Models.Transform.NullTransform;
+            Transform = BasicTransform.NullTransform;
         }
         public Sphere(RayTuple origin) : this()
         {
