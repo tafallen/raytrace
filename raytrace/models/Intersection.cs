@@ -12,6 +12,8 @@ namespace RayTrace.Models
 
         public int CompareTo(Intersection? other)
         {
+            if( other == null)
+                return -1;
             return T.CompareTo(other.T);
         }
 

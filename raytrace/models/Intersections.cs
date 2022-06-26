@@ -6,7 +6,7 @@ namespace RayTrace.Models
     {
         public static Intersections List = new Intersections();
 
-        public static Intersection Hit()
+        public static Intersection? Hit()
         {
             var positives = Intersections.List.Where(item => item.T >= 0);
 

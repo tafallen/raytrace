@@ -18,7 +18,7 @@ namespace RayTraceTest.Models
             actual.Assert(expected.X, expected.Y, expected.Z, expected.Type);
         }
 
-        public static void Assert(double expected, double actual, string message = "")
+        public static void Assert(double actual, double expected, string message = "")
         {
             if(!expected.IsEqual(actual))
             {

@@ -92,6 +92,26 @@ namespace RayTraceTest.Models
             Assert.AreEqual(1.0, xs[1].T);
             Assert.AreEqual(sphere, xs[1].Element);
         }
+        [TestMethod]
+        public void TestTranslateSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(1,2,3),RayTuple.Vector(0,1,0));
+            var translationMatrix = new Matrix(new double[,] {{3,4,5}});
+
+            var expectedResult = ray.Transform(translationMatrix);
+            RayTuple.Point(4,6,8).Assert(expectedResult.Point);
+            RayTuple.Vector(0,1,0).Assert(expectedResult.Direction);
+        }
+        [TestMethod]
+        public void TestScalingSucceeds()
+        {
+            var ray = new Ray(RayTuple.Point(1,2,3),RayTuple.Vector(0,1,0));
+            var scalingMatrix = new Matrix(new double[,] {{2,3,4}});
+
+            var expectedResult = ray.Scale(scalingMatrix);
+            RayTuple.Point(2,6,12).Assert(expectedResult.Point);
+            RayTuple.Vector(0,3,0).Assert(expectedResult.Direction);
+        }
         [TestInitialize]
         public void Setup()
         {
