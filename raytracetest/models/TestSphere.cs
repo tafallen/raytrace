@@ -33,11 +33,26 @@ namespace RayTraceTest.Models
             var scaling = ScalingTransform.ScaleMatrix(2,2,2);
             sphere.Transform = scaling;
 
-            // var scaledRay = scaling.Inverse().Transform(ray);
-            // var intersects = sphere.Intersect(scaledRay);
             var intersects = sphere.Intersect(ray);
 
             Assert.AreEqual(2, intersects.Count);
+        }
+        [TestMethod]
+        public void IntersectTranslatedSphereWithRayMisses()
+        {
+            var sphere = new Sphere();
+            var ray = new Ray(RayTuple.Point(0,0,-5),RayTuple.Vector(0,0,1));
+            var translate = TranslationTransform.TranslationMatrix(5,0,0);
+            sphere.Transform = translate;
+
+            var intersects = sphere.Intersect(ray);
+
+            Assert.AreEqual(0, intersects.Count);
+        }
+        [TestInitialize]
+        public void Setup()
+        {
+            Intersections.List.Clear();
         }
     }
 }
