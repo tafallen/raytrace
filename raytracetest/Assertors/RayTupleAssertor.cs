@@ -1,4 +1,4 @@
-namespace RayTraceTest.Models
+namespace RayTraceTest.Assertors
 {
     using RayTrace.Models;
     using RayTrace.Extensions;

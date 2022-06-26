@@ -1,7 +1,7 @@
-using RayTrace.Models;
-
-namespace RayTraceTest.Models
+namespace RayTraceTest.Assertors
 {
+    using RayTrace.Models;
+
     public static class ColourAssertor
     {
         public static void Assert(this Colour actual, double r, double g, double b)

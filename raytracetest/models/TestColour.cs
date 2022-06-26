@@ -1,6 +1,7 @@
 namespace RayTraceTest.Models
 {
     using RayTrace.Models;
+    using RayTraceTest.Assertors;
 
     [TestClass]
     public class TestColour

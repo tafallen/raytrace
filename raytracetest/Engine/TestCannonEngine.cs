@@ -1,6 +1,6 @@
 namespace RayTraceTest.Engine
 {
-    using RayTraceTest.Models;
+    using RayTraceTest.Assertors;
     using RayTrace.Engine;
     using RayTrace.Extensions;
     using RayTrace.Models;

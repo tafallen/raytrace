@@ -2,6 +2,7 @@ namespace RayTraceTest.Models
 {
     using RayTrace.Models;
     using RayTrace.Extensions;
+    using RayTraceTest.Assertors;
 
     [TestClass]
     public class TestRayTraceTuple
