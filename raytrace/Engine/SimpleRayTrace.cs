@@ -18,7 +18,7 @@ namespace RayTrace.Engine
             rayOrigin = RayTuple.Point(0,0,-5);
             wall_z = 10;
             wall_size = 7;
-            canvas_pixels = 1000;
+            canvas_pixels = 100;
             pixel_size = wall_size/canvas_pixels;
             half = wall_size /2;
         }
@@ -29,6 +29,9 @@ namespace RayTrace.Engine
             var colour = new Colour(1,0,0);
             var shape = new Sphere();
 
+            // shape.Transform = ShearingTransform.ShearingMatrix(1,0,0,0,0,0) * ScalingTransform.ScaleMatrix(0.5,1,1); 
+            // shape.Transform = RotateZTransform.RotateZMatrix(Math.PI/4) * ScalingTransform.ScaleMatrix(0.5,1,1);
+            
             for(int y = 0; y < canvas_pixels; y++)
             {
                 var world_y = half - pixel_size * y;

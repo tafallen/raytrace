@@ -25,7 +25,9 @@ namespace RayTrace.Transforms
         }
         public override Ray Transform(Ray ray)
         {
-            throw new NotImplementedException();
+            var p = Transform(ray.Point);
+            var d = Transform(ray.Direction);
+            return new Ray(p,d);
         }
         public override string ToString()
         {
