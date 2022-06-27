@@ -24,7 +24,7 @@ namespace RayTraceTest.Models
             Intersections.List.Add(i1);
             Intersections.List.Add(i2);
             
-            var hit = Intersections.Hit();
+            var hit = Intersections.List.Hit();
             Assert.AreEqual(i1, hit);
         }
         [TestMethod]
@@ -36,7 +36,7 @@ namespace RayTraceTest.Models
             Intersections.List.Add(i1);
             Intersections.List.Add(i2);
             
-            var hit = Intersections.Hit();
+            var hit = Intersections.List.Hit();
             Assert.AreEqual(i2, hit);
         }
         [TestMethod]
@@ -48,7 +48,7 @@ namespace RayTraceTest.Models
             Intersections.List.Add(i1);
             Intersections.List.Add(i2);
             
-            var hit = Intersections.Hit();
+            var hit = Intersections.List.Hit();
             Assert.IsNull(hit);
         }
         public void TestLowestHitReturnedSucceeds()
@@ -63,7 +63,7 @@ namespace RayTraceTest.Models
             Intersections.List.Add(i3);
             Intersections.List.Add(i4);
             
-            var hit = Intersections.Hit();
+            var hit = Intersections.List.Hit();
             Assert.AreEqual(i4, hit);
         }
         [TestInitialize]
