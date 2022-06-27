@@ -3,7 +3,6 @@ namespace RayTraceTest.Models
     using RayTrace.Models;
     using RayTrace.Extensions;
     using RayTrace.Transforms;
-    using RayTraceTest.Assertors;
 
 
     [TestClass]

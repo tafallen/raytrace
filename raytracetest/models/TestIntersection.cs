@@ -40,7 +40,7 @@ namespace RayTraceTest.Models
             Assert.AreEqual(i2, hit);
         }
         [TestMethod]
-        public void TestEmptyIfNoPosHitReturnedSucceeds()
+        public void TestEmptyIfNoPosHitSucceeds()
         {
             var sphere = new Sphere();
             var i1 = new Intersection(-1, sphere);
