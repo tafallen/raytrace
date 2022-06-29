@@ -1,5 +1,6 @@
 namespace RayTrace.Models
 {
+    using RayTrace.Extensions;
     using RayTrace.Transforms;
 
     public class Sphere : Element
@@ -21,6 +22,11 @@ namespace RayTrace.Models
         public override string ToString()
         {
             return $"Sphere - Radius: {Radius}, Origin: {Origin}, Transform: {Transform}";
+        }
+        public RayTuple NormalAt(RayTuple point)
+        {
+            var result = point - this.Origin;
+            return result.Normalise();
         }
     }
 }
