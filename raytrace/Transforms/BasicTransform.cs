@@ -4,7 +4,7 @@ namespace RayTrace.Transforms
     public abstract class BasicTransform
     {
         public static BasicTransform NullTransform  => TranslationTransform.TranslationMatrix(0d,0d,0d);
-        protected Matrix Matrix {get; set;}
+        public Matrix Matrix {get; set;}
         protected BasicTransform()
         {
             Matrix = Matrix.IdentityMatrix;

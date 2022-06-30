@@ -84,12 +84,42 @@ namespace RayTraceTest.Models
             expected.Assert(actual);
         }
         [TestMethod]
+        public void NormalAtNonaxialPoint()
+        {
+            var sphere = new Sphere();
+            var expected = RayTuple.Vector(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
+            var vector = sphere.NormalAt(RayTuple.Point(Math.Sqrt(3)/3, Math.Sqrt(3)/3, Math.Sqrt(3)/3));
+
+            expected.Assert(vector);
+        }
+        [TestMethod]
         public void NormalAtIsNormalised()
         {
             var sphere = new Sphere();
             var vector = sphere.NormalAt( RayTuple.Point(Math.Sqrt(3)/3, Math.Sqrt(3)/3, Math.Sqrt(3)/3));
 
             vector.Assert(vector.Normalise());
+        }
+        [TestMethod]
+        public void NormalOnTranslatedSphere()
+        {
+            var sphere = new Sphere();
+            sphere.Transform = TranslationTransform.TranslationMatrix(0,1,0);
+            var actual = sphere.NormalAt(RayTuple.Point(0, 1.70711, -0.70711));
+            RayTuple.Vector(0,0.70711, -0.70711).Assert(actual);
+        }
+        [TestMethod]
+        public void NormalOnTransformedSphere()
+        {
+            var sphere = new Sphere();
+            var transform = ScalingTransform.ScaleMatrix(1,0.5,1) * RotateZTransform.RotateZMatrix(Math.PI/5);
+            sphere.Transform = transform;
+            
+            var point = RayTuple.Point(0, Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
+            var actual = sphere.NormalAt(point);
+
+            RayTuple.Vector(0, 0.97014, -0.24254)
+                    .Assert(actual);
         }
     }
 }

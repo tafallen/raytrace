@@ -25,8 +25,10 @@ namespace RayTrace.Models
         }
         public RayTuple NormalAt(RayTuple point)
         {
-            var result = point - this.Origin;
-            return result.Normalise();
+            var objectPoint = Transform.Matrix.Inverse() * point;
+            var objectNormal = objectPoint - this.Origin;
+            var worldNormal = (Transform.Matrix.Inverse()).Transpose() * objectNormal;
+            return worldNormal.Normalise();
         }
     }
 }
