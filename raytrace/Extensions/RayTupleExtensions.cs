@@ -40,5 +40,10 @@ namespace RayTrace.Extensions
 
             return RayTuple.Vector(x,y,z);
         }
+
+        public static RayTuple Reflect(this RayTuple a, RayTuple normal)
+        {
+            return a - normal * 2 * a.DotProduct(normal);
+        }
     }
 }

@@ -184,6 +184,24 @@ namespace RayTraceTest.Models
             RayTuple.Vector(1,-2,1)
                     .Assert(vector2.CrossProduct(vector1));
         }
+        [TestMethod]
+        public void Reflect45degVector()
+        {
+            var vector = RayTuple.Vector(1, -1, 0);
+            var normal = RayTuple.Vector(0, 1, 0);
+            var expected = RayTuple.Vector(1, 1, 0);
+
+            expected.Assert(vector.Reflect(normal));
+        }
+        [TestMethod]
+        public void ReflectOffSlantedSurface()
+        {
+            var vector = RayTuple.Vector(0, -1, 0);
+            var normal = RayTuple.Vector(Math.Sqrt(2)/2, Math.Sqrt(2)/2, 0);
+            var expected = RayTuple.Vector(1, 0, 0);
+
+            expected.Assert(vector.Reflect(normal));
+        }
     }
 }
 
