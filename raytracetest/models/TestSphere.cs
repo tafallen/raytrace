@@ -105,17 +105,19 @@ namespace RayTraceTest.Models
         {
             var sphere = new Sphere();
             sphere.Transform = TranslationTransform.TranslationMatrix(0,1,0);
+
             var actual = sphere.NormalAt(RayTuple.Point(0, 1.70711, -0.70711));
-            RayTuple.Vector(0,0.70711, -0.70711).Assert(actual);
+
+            RayTuple.Vector(0,0.70711, -0.70711)
+                    .Assert(actual);
         }
         [TestMethod]
         public void NormalOnTransformedSphere()
         {
             var sphere = new Sphere();
-            var transform = ScalingTransform.ScaleMatrix(1,0.5,1) * RotateZTransform.RotateZMatrix(Math.PI/5);
-            sphere.Transform = transform;
-            
+            sphere.Transform = ScalingTransform.ScaleMatrix(1,0.5,1) * RotateZTransform.RotateZMatrix(Math.PI/5);
             var point = RayTuple.Point(0, Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
+
             var actual = sphere.NormalAt(point);
 
             RayTuple.Vector(0, 0.97014, -0.24254)
