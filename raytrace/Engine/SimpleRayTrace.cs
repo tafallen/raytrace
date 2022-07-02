@@ -2,7 +2,6 @@ namespace RayTrace.Engine
 {
     using RayTrace.Models;
     using RayTrace.Extensions;
-    using RayTrace.Transforms;
 
     public class SimpleRayTrace
     {
@@ -28,10 +27,16 @@ namespace RayTrace.Engine
             var canvas = new Canvas(canvas_pixels,canvas_pixels);
             var colour = new Colour(1,0,0);
             var shape = new Sphere();
+            shape.Material = new Material()
+            {
+                Colour = new Colour(1,0.2,1)
+            };
+            var light = new Light()
+            {
+                Position = RayTuple.Point(-10,10,-10),
+                Intensity = new Colour(1,1,1)
+            };
 
-            // shape.Transform = ShearingTransform.ShearingMatrix(1,0,0,0,0,0) * ScalingTransform.ScaleMatrix(0.5,1,1); 
-            // shape.Transform = RotateZTransform.RotateZMatrix(Math.PI/4) * ScalingTransform.ScaleMatrix(0.5,1,1);
-            
             for(int y = 0; y < canvas_pixels; y++)
             {
                 var world_y = half - pixel_size * y;
@@ -40,12 +45,24 @@ namespace RayTrace.Engine
                 {
                     var world_x = -half + pixel_size * x;
                     var position = RayTuple.Point(world_x, world_y, wall_z);
+
                     var ray = new Ray(rayOrigin, (position -rayOrigin).Normalise());
+
                     Intersections intersects = shape.Intersect(ray);
 
                     if(Intersections.List.Hit() != null)
                     {
-                        canvas.WritePixel(x,y,colour);
+                        var hit = Intersections.List.Hit();
+                        if( hit != null)
+                        {
+                            var point = ray.Position(hit.T);
+                            var normal = ((Sphere)hit.Element).NormalAt(point);
+                            var eye = ray.Direction * -1;
+                            var s = ((Sphere)hit.Element);
+                            var c = s.Material.Lighting(light,point,eye,normal);
+
+                            canvas.WritePixel(x,y,c);
+                        }
                     }
                     Intersections.List.Clear();
                 }
