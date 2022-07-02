@@ -26,7 +26,7 @@ namespace RayTrace.Models
         }
         public override string ToString()
         {
-            return $"({R},{G},{B})";
+            return $"Colour: {R},{G},{B}";
         }
         public override bool Equals(object? obj)
         {

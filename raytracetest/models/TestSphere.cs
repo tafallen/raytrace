@@ -18,6 +18,7 @@ namespace RayTraceTest.Models
         {
             var sphere = new Sphere();
             Assert.IsNotNull(sphere);
+            Assert.AreEqual(new Material(), sphere.Material);
         }
         [TestMethod]
         public void SetTransformationSucceeds()
@@ -122,6 +123,16 @@ namespace RayTraceTest.Models
 
             RayTuple.Vector(0, 0.97014, -0.24254)
                     .Assert(actual);
+        }
+        [TestMethod]
+        public void AssignMaterialSucceeds()
+        {
+            var sphere = new Sphere();
+            var material = new Material(){ Colour = new Colour(0.5, 0.5, 0) };
+
+            sphere.Material = material;
+
+            Assert.AreEqual(material, sphere.Material);
         }
     }
 }

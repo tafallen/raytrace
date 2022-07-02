@@ -5,6 +5,7 @@ namespace RayTrace.Models
 
     public class Sphere : Element
     {
+        public Material Material{ get; set; }
         public RayTuple Origin{ get; set;}
         public double Radius {get; set;}
         public BasicTransform Transform {get; set;} 
@@ -14,6 +15,7 @@ namespace RayTrace.Models
             Origin = RayTuple.Point(0,0,0);
             Radius = 1;
             Transform = BasicTransform.NullTransform;
+            Material = new Material();
         }
         public Sphere(RayTuple origin) : this()
         {
