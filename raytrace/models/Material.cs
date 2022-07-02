@@ -1,5 +1,6 @@
 namespace RayTrace.Models
 {
+    using RayTrace.Extensions;
     public class Material
     {
         public Colour Colour { get; set; }
@@ -26,14 +27,40 @@ namespace RayTrace.Models
                 return false;
 
             var b = obj as Material;
-            if( b == null)
-                return false;
+            return b == null ? false : Equals(b);
+        }
 
+        public bool Equals(Material b)
+        {
             return( Colour.Equals(b.Colour) &&
                 Ambient == b.Ambient &&
                 Diffuse == b.Diffuse &&
                 Specular == b.Specular &&
                 Shininess == b.Shininess );
+        }
+
+        public Colour Lighting(Light light, RayTuple point, RayTuple eyev, RayTuple normalv)
+        {
+            var effectiveColour = Colour * light.Intensity;
+            var lightv = (light.Position - point).Normalise();
+            var ambient = effectiveColour * Ambient;
+            var lightDotNormal = lightv.DotProduct(normalv);
+            var diffuse = new Colour(0,0,0);
+            var specular = new Colour(0,0,0);
+
+            if( lightDotNormal > 0)
+            {
+                diffuse = effectiveColour * Diffuse * lightDotNormal;
+                var reflectv = (lightv * -1).Reflect(eyev); 
+                var reflectDotEye = reflectv.DotProduct(eyev);
+
+                if (reflectDotEye > 0)
+                {
+                    var factor = Math.Pow(reflectDotEye, Shininess);
+                    specular = light.Intensity * Specular * factor;
+                }
+            }
+            return ambient + diffuse + specular;
         }
 
         public override int GetHashCode()

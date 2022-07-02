@@ -13,7 +13,7 @@ namespace RayTraceTest.Assertors
                     Assert(expected, actual, i, j);
                 }
         }
-        public static void Assert(Matrix expected, Matrix actual, int i, int j)//string message = "")
+        public static void Assert(Matrix expected, Matrix actual, int i, int j)
         {
             var e = expected[i,j];
             var a = actual[i,j];
