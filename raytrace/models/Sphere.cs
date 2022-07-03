@@ -2,7 +2,6 @@ namespace RayTrace.Models
 {
     using RayTrace.Extensions;
     using RayTrace.Transforms;
-
     public class Sphere : Element
     {
         public Material Material{ get; set; }
