@@ -1,6 +1,7 @@
 namespace RayTraceTest.Models
 {
     using RayTrace.Models;
+    using RayTraceTest.Assertors;
 
     [TestClass]
     public class TestIntersection
@@ -16,7 +17,7 @@ namespace RayTraceTest.Models
             Assert.AreEqual(sphere, intersection.Element);
         }
         [TestMethod]
-        public void TestHitReturnedSucceeds()
+        public void HitReturnedSucceeds()
         {
             var sphere = new Sphere();
             var i1 = new Intersection(1, sphere);
@@ -28,7 +29,7 @@ namespace RayTraceTest.Models
             Assert.AreEqual(i1, hit);
         }
         [TestMethod]
-        public void TestFirstPositiveHitReturnedSucceeds()
+        public void FirstPositiveHitReturnedSucceeds()
         {
             var sphere = new Sphere();
             var i1 = new Intersection(-1, sphere);
@@ -40,7 +41,7 @@ namespace RayTraceTest.Models
             Assert.AreEqual(i2, hit);
         }
         [TestMethod]
-        public void TestEmptyIfNoPosHitSucceeds()
+        public void EmptyIfNoPosHitSucceeds()
         {
             var sphere = new Sphere();
             var i1 = new Intersection(-1, sphere);
@@ -51,7 +52,8 @@ namespace RayTraceTest.Models
             var hit = Intersections.List.Hit();
             Assert.IsNull(hit);
         }
-        public void TestLowestHitReturnedSucceeds()
+        [TestMethod]
+        public void LowestHitReturnedSucceeds()
         {
             var sphere = new Sphere();
             var i1 = new Intersection(5, sphere);
@@ -66,6 +68,44 @@ namespace RayTraceTest.Models
             var hit = Intersections.List.Hit();
             Assert.AreEqual(i4, hit);
         }
+        [TestMethod]
+        public void PrecomputeIntersectionState()
+        {
+            var ray = new Ray(RayTuple.Point(0,0,-5), RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var i = new Intersection(4, sphere);
+
+            var comps = i.PrepareComputations(ray);
+            Assert.AreEqual( i.T, comps.T);
+            Assert.AreEqual( i.Element, comps.Element);
+            RayTuple.Vector(0,0,-1).Assert(comps.EyeV);
+            RayTuple.Vector(0,0,-1).Assert(comps.NormalV);
+            RayTuple.Point(0,0,-1).Assert(comps.Point);
+        }
+        [TestMethod]
+        public void HitWhenIntersectionOccursOnOutside()
+        {
+            var ray = new Ray(RayTuple.Point(0,0,-5), RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var i = new Intersection(4, sphere);
+
+            var comps = i.PrepareComputations(ray);
+            Assert.IsFalse(comps.Inside);
+        }
+        [TestMethod]
+        public void HitWhenIntersectionOccursOnInside()
+        {
+            var ray = new Ray(RayTuple.Point(0,0,0), RayTuple.Vector(0,0,1));
+            var sphere = new Sphere();
+            var i = new Intersection(1, sphere);
+
+            var comps = i.PrepareComputations(ray);
+            RayTuple.Point(0,0,1).Assert(comps.Point);
+            RayTuple.Vector(0,0,-1).Assert(comps.EyeV);
+            Assert.IsTrue(comps.Inside);
+            RayTuple.Vector(0,0,-1).Assert(comps.NormalV);
+        }
+
         [TestInitialize]
         public void Setup()
         {

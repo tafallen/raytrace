@@ -1,5 +1,6 @@
 namespace RayTrace.Models
 {
+    using RayTrace.Extensions;
     public class Intersection : IComparable<Intersection>
     {
         public double T {get; set;}
@@ -16,10 +17,24 @@ namespace RayTrace.Models
                 return -1;
             return T.CompareTo(other.T);
         }
-
         public override string ToString()
         {
             return $"Intersection( T: {T}, Element: {Element} )";
+        }
+        public Comps PrepareComputations(Ray r)
+        {
+            var point = r.Position(T);
+            var eyev = r.Direction * -1;
+            var normalv = ((Sphere)Element).NormalAt(point);
+            var inside = false;
+
+            if( normalv.DotProduct(eyev) < 0)
+            {
+                inside = true;
+                normalv = normalv * -1;
+            }
+
+            return new Comps(T, Element, point , eyev, normalv, inside);
         }
     }
 }
