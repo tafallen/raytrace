@@ -105,7 +105,6 @@ namespace RayTraceTest.Models
             var ray = new Ray(RayTuple.Point(0,0,0.75), RayTuple.Vector(0,0,-1));
 
             inner.Material.Colour.Assert(world.ColourAt(ray));
-
         }
 
         private World CreateDefaultWorld()

@@ -209,6 +209,56 @@ namespace RayTraceTest.Models
             RayTuple.Point(4,6,8).Assert(expectedResult.Point);
             RayTuple.Vector(0,1,0).Assert(expectedResult.Direction);
         }
+        [TestMethod]
+        public void TransformationMatrixForDefaultOrientation()
+        {
+            var from = RayTuple.Point(0, 0, 0);
+            var to   = RayTuple.Point(0, 0,-1);
+            var up   = RayTuple.Vector(0, 1, 0);
+
+            var transform = ViewTransform.ViewTransformMatrix(from, to, up);
+
+            transform.Matrix.Assert(Matrix.IdentityMatrix);
+        }
+        // [TestMethod]
+        // public void TransformationMatrixPosZDirection()
+        // {
+        //     var from = RayTuple.Point(0, 0, 0);
+        //     var to   = RayTuple.Point(0, 0, 1);
+        //     var up   = RayTuple.Vector(0, 1, 0);
+
+        //     var transform = ViewTransform.ViewTransformMatrix(from, to, up);
+            
+        //     ScalingTransform.ScaleMatrix(-1,-1,-1).Matrix.Assert(transform.Matrix);
+        // }
+        // [TestMethod]
+        // public void TransformationMovesWorld()
+        // {
+        //     var from = RayTuple.Point(0, 0, 8);
+        //     var to   = RayTuple.Point(0, 0, 0);
+        //     var up   = RayTuple.Vector(0, 1, 0);
+
+        //     var transform = ViewTransform.ViewTransformMatrix(from, to, up);
+
+        //     ScalingTransform.ScaleMatrix( 0, 0,-8).Matrix.Assert(transform.Matrix);
+        // }
+        [TestMethod]
+        public void TransformationArbitrary()
+        {
+            var from = RayTuple.Point(1, 3, 2);
+            var to   = RayTuple.Point(4, -2, 8);
+            var up   = RayTuple.Vector(1, 1, 0);
+
+            var transform = ViewTransform.ViewTransformMatrix(from, to, up);
+
+            var expected = new Matrix(new double[,] {
+                {-0.50709, 0.50709,  0.67612, -2.36643},
+ 	            { 0.76772, 0.60609,  0.12122, -2.82843},
+ 	            {-0.35857, 0.59761, -0.71714,  0.00000},
+ 	            { 0.00000, 0.00000,  0.00000,  1.00000}});
+            expected.Assert(transform.Matrix);
+        }
+
         [TestInitialize]
         public void Setup()
         {

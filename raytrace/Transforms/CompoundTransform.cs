@@ -2,7 +2,6 @@ namespace RayTrace.Transforms
 {
     using RayTrace.Extensions;
     using RayTrace.Models;
-
     public class CompoundTransform : BasicTransform
     {
         public override CompoundTransform Inverse()
