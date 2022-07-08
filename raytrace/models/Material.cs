@@ -51,7 +51,7 @@ namespace RayTrace.Models
             if( lightDotNormal > 0)
             {
                 diffuse = effectiveColour * Diffuse * lightDotNormal;
-                var reflectv = (lightv * -1).Reflect(eyev); 
+                var reflectv = (!lightv).Reflect(eyev); 
                 var reflectDotEye = reflectv.DotProduct(eyev);
 
                 if (reflectDotEye > 0)

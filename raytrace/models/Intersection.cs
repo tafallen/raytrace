@@ -24,14 +24,14 @@ namespace RayTrace.Models
         public Comps PrepareComputations(Ray r)
         {
             var point = r.Position(T);
-            var eyev = r.Direction * -1;
+            var eyev = !r.Direction;
             var normalv = ((Sphere)Element).NormalAt(point);
             var inside = false;
 
             if( normalv.DotProduct(eyev) < 0)
             {
                 inside = true;
-                normalv = normalv * -1;
+                normalv = !normalv;
             }
 
             return new Comps(T, Element, point , eyev, normalv, inside);

@@ -5,9 +5,9 @@ namespace RayTraceTest.Assertors
 
     public static class TransformAssertor
     {
-        // public static void Assert(this BasicTransform actual, BasicTransform expected)
-        // {
-        //     // actual.Matrix.Assert(expected.Matrix);
-        // }
+        public static void Assert(this BasicTransform actual, BasicTransform expected)
+        {
+            actual.Matrix.Assert(expected.Matrix);
+        }
     }
 }

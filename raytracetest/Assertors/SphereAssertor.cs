@@ -9,7 +9,7 @@ namespace RayTraceTest.Assertors
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(expected);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(actual.Radius, expected.Radius); 
             actual.Origin.Assert(expected.Origin);
-            // actual.Transform.Assert(expected.Transform);
+            actual.Transform.Assert(expected.Transform);
         }
     }
 }
