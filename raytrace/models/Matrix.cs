@@ -5,7 +5,13 @@ namespace RayTrace.Models
 
     public class Matrix
     {
-        public static Matrix IdentityMatrix = new Matrix(new double[4,4] {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}});
+        public static Matrix IdentityMatrix = new Matrix(new double[4,4] 
+        {
+            {1,0,0,0},
+            {0,1,0,0},
+            {0,0,1,0},
+            {0,0,0,1}
+        });
 
         private double[,] matrix;
 
@@ -59,7 +65,7 @@ namespace RayTrace.Models
             }
             return result;
         }
-        public static RayTuple operator *(Matrix a, RayTuple b)
+        public static Point operator *(Matrix a, Point b)
         {
             var result = new double[4];
             for(var j = 0; j<4; j++)
@@ -67,10 +73,23 @@ namespace RayTrace.Models
                 result[j] = a[j,0] * b.X +
                             a[j,1] * b.Y +
                             a[j,2] * b.Z + 
-                            a[j,3] * (int)b.Type;
+                            a[j,3] * 1;
             }
-            return new RayTuple(result[0],result[1],result[2],b.Type);
+            return new Point(result[0],result[1],result[2]);
         }
+        public static Vector operator *(Matrix a, Vector b)
+        {
+            var result = new double[4];
+            for(var j = 0; j<4; j++)
+            {
+                result[j] = a[j,0] * b.X +
+                            a[j,1] * b.Y +
+                            a[j,2] * b.Z + 
+                            a[j,3] * 0;
+            }
+            return new Vector(result[0],result[1],result[2]);
+        }
+        
         public override bool Equals(object? obj)
         {
             var other = obj as Matrix;

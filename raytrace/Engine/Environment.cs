@@ -4,9 +4,9 @@ namespace RayTrace.Engine
 {
     public class Environment
     {
-        public RayTuple Gravity {get; set;}
-        public RayTuple Wind {get; set;}
-        public Environment(RayTuple gravity, RayTuple wind)
+        public Vector Gravity {get; set;}
+        public Vector Wind {get; set;}
+        public Environment(Vector gravity, Vector wind)
         {
             Gravity = gravity;
             Wind = wind;

@@ -18,7 +18,11 @@ namespace RayTrace.Transforms
             return result;
         }
         public abstract Ray Transform(Ray ray);
-        public RayTuple Transform(RayTuple a)
+        public Point Transform(Point a)
+        {
+            return Matrix * a;
+        }
+        public Vector Transform(Vector a)
         {
             return Matrix * a;
         }

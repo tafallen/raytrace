@@ -23,11 +23,11 @@ namespace RayTrace.Engine
         public static void FireCannon()
         {
             var projectile = new Projectile(
-                RayTuple.Point(0,1,0),
-                (RayTuple.Vector(1,1.8,0).Normalise())*11.25);
+                new Point(0,1,0),
+                (new Vector(1,1.8,0).Normalise())*11.25);
             var environment = new RayTrace.Engine.Environment(
-                RayTuple.Vector(0,-0.1,0),
-                RayTuple.Vector(-0.01,0,0));
+                new Vector(0,-0.1,0),
+                new Vector(-0.01,0,0));
             var engine = new CannonEngine(projectile,environment);   
             var canvas = new Canvas(900,550);
 

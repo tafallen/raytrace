@@ -4,18 +4,17 @@ namespace RayTrace.Models
     using RayTrace.Transforms;
     public class Sphere : Element
     {
-        public RayTuple Origin{ get; set;}
+        public Point Origin{ get; set;}
         public double Radius {get; set;}
         public BasicTransform Transform {get; set;} 
         
-        public Sphere()
+        public Sphere() : base()
         {
-            Origin = RayTuple.Point(0,0,0);
+            Origin = new Point(0,0,0);
             Radius = 1;
             Transform = BasicTransform.NullTransform;
-            Material = new Material();
         }
-        public Sphere(RayTuple origin) : this()
+        public Sphere(Point origin) : this()
         {
             Origin = origin;
         }
@@ -23,9 +22,9 @@ namespace RayTrace.Models
         {
             return $"Sphere - Radius: {Radius}, Origin: {Origin}, Transform: {Transform}";
         }
-        public RayTuple NormalAt(RayTuple point)
+        public Vector NormalAt(Point point)
         {
-            var objectPoint = Transform.Matrix.Inverse() * point;
+            Point objectPoint = Transform.Matrix.Inverse() * point;
             var objectNormal = objectPoint - this.Origin;
             var worldNormal = (Transform.Matrix.Inverse()).Transpose() * objectNormal;
             return worldNormal.Normalise();

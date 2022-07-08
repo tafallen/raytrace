@@ -5,7 +5,7 @@ namespace RayTrace.Engine
 
     public class SimpleRayTrace
     {
-        private RayTuple rayOrigin;
+        private Point rayOrigin;
         private double wall_z;
         private double wall_size;
         private int canvas_pixels;
@@ -14,7 +14,7 @@ namespace RayTrace.Engine
 
         public SimpleRayTrace()
         {
-            rayOrigin = RayTuple.Point(0,0,-5);
+            rayOrigin = new Point(0,0,-5);
             wall_z = 10;
             wall_size = 7;
             canvas_pixels = 100;
@@ -33,7 +33,7 @@ namespace RayTrace.Engine
             };
             var light = new Light()
             {
-                Position = RayTuple.Point(-10,10,-10),
+                Position = new Point(-10,10,-10),
                 Intensity = new Colour(1,1,1)
             };
 
@@ -44,9 +44,9 @@ namespace RayTrace.Engine
                 for(int x = 0; x < canvas_pixels; x++)
                 {
                     var world_x = -half + pixel_size * x;
-                    var position = RayTuple.Point(world_x, world_y, wall_z);
+                    var position = new Point(world_x, world_y, wall_z);
 
-                    var ray = new Ray(rayOrigin, (position -rayOrigin).Normalise());
+                    var ray = new Ray(rayOrigin, (position - rayOrigin).Normalise());
 
                     Intersections intersects = shape.Intersect(ray);
 
@@ -57,7 +57,7 @@ namespace RayTrace.Engine
                         {
                             var point = ray.Position(hit.T);
                             var normal = ((Sphere)hit.Element).NormalAt(point);
-                            var eye = ray.Direction * -1;
+                            var eye = !(ray.Direction as Vector);
                             var s = ((Sphere)hit.Element);
                             var c = s.Material.Lighting(light,point,eye,normal);
 

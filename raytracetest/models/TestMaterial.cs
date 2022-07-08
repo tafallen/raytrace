@@ -23,12 +23,12 @@ namespace RayTraceTest.Models
         {
             var expected = new Colour(1.9,1.9,1.9);
             var material = new Material();
-            var point = RayTuple.Point(0,0,0);
-            var eyev = RayTuple.Vector(0,0,-1);
-            var normalv = RayTuple.Vector(0,0,-1);
+            var point = new Point(0,0,0);
+            var eyev = new Vector(0,0,-1);
+            var normalv = new Vector(0,0,-1);
             var light = new Light()
             {
-                Position = RayTuple.Point(0,0,-10),
+                Position = new Point(0,0,-10),
                 Intensity = new Colour(1,1,1)
             };
 
@@ -40,12 +40,12 @@ namespace RayTraceTest.Models
         {
             var expected = new Colour(1.0,1.0,1.0);
             var material = new Material();
-            var point = RayTuple.Point(0,0,0);
-            var eyev = RayTuple.Vector(0,Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
-            var normalv = RayTuple.Vector(0,0,-1);
+            var point = new Point(0,0,0);
+            var eyev = new Vector(0,Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
+            var normalv = new Vector(0,0,-1);
             var light = new Light()
             {
-                Position = RayTuple.Point(0,0,-10),
+                Position = new Point(0,0,-10),
                 Intensity = new Colour(1,1,1)
             };
 
@@ -57,12 +57,12 @@ namespace RayTraceTest.Models
         {
             var expected = new Colour(0.7364,0.7364,0.7364);
             var material = new Material();
-            var point = RayTuple.Point(0,0,0);
-            var eyev = RayTuple.Vector(0,0,-1);
-            var normalv = RayTuple.Vector(0,0,-1);
+            var point = new Point(0,0,0);
+            var eyev = new Vector(0,0,-1);
+            var normalv = new Vector(0,0,-1);
             var light = new Light()
             {
-                Position = RayTuple.Point(0,10,-10),
+                Position = new Point(0,10,-10),
                 Intensity = new Colour(1,1,1)
             };
 
@@ -74,12 +74,12 @@ namespace RayTraceTest.Models
         {
             var expected = new Colour(1.6364,1.6364,1.6364);
             var material = new Material();
-            var point = RayTuple.Point(0,0,0);
-            var eyev = RayTuple.Vector(0,Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
-            var normalv = RayTuple.Vector(0,0,-1);
+            var point = new Point(0,0,0);
+            var eyev = new Vector(0,Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
+            var normalv = new Vector(0,0,-1);
             var light = new Light()
             {
-                Position = RayTuple.Point(0,10,-10),
+                Position = new Point(0,10,-10),
                 Intensity = new Colour(1,1,1)
             };
 
@@ -91,12 +91,12 @@ namespace RayTraceTest.Models
         {
             var expected = new Colour(0.1,0.1,0.1);
             var material = new Material();
-            var point = RayTuple.Point(0,0,0);
-            var eyev = RayTuple.Vector(0,0,-1);
-            var normalv = RayTuple.Vector(0,0,-1);
+            var point = new Point(0,0,0);
+            var eyev = new Vector(0,0,-1);
+            var normalv = new Vector(0,0,-1);
             var light = new Light()
             {
-                Position = RayTuple.Point(0,0,10),
+                Position = new Point(0,0,10),
                 Intensity = new Colour(1,1,1)
             };
 

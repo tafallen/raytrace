@@ -5,5 +5,10 @@ namespace RayTrace.Models
         public Material Material{ get; set; }
 
         public abstract Intersections Intersect(Ray r);
+
+        public Element()
+        {
+            Material = new Material();
+        }
     }
 }

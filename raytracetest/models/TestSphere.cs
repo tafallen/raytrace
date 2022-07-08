@@ -34,7 +34,7 @@ namespace RayTraceTest.Models
         public void IntersectScaledSphereWithRaySucceeds()
         {
             var sphere = new Sphere();
-            var ray = new Ray(RayTuple.Point(0,0,-5),RayTuple.Vector(0,0,1));
+            var ray = new Ray(new Point(0,0,-5),new Vector(0,0,1));
             var scaling = ScalingTransform.ScaleMatrix(2,2,2);
             sphere.Transform = scaling;
 
@@ -46,7 +46,7 @@ namespace RayTraceTest.Models
         public void IntersectTranslatedSphereWithRayMisses()
         {
             var sphere = new Sphere();
-            var ray = new Ray(RayTuple.Point(0,0,-5),RayTuple.Vector(0,0,1));
+            var ray = new Ray(new Point(0,0,-5),new Vector(0,0,1));
             var translate = TranslationTransform.TranslationMatrix(5,0,0);
             sphere.Transform = translate;
 
@@ -58,9 +58,9 @@ namespace RayTraceTest.Models
         public void NormalAtAPointOnXAxis()
         {
             var sphere = new Sphere();
-            var expected = RayTuple.Vector(1,0,0);
+            var expected = new Vector(1,0,0);
 
-            var actual = sphere.NormalAt(RayTuple.Point(1,0,0));
+            var actual = sphere.NormalAt(new Point(1,0,0));
 
             expected.Assert(actual);
         }
@@ -68,9 +68,9 @@ namespace RayTraceTest.Models
         public void NormalAtAPointOnYAxis()
         {
             var sphere = new Sphere();
-            var expected = RayTuple.Vector(0,1,0);
+            var expected = new Vector(0,1,0);
 
-            var actual = sphere.NormalAt(RayTuple.Point(0,1,0));
+            var actual = sphere.NormalAt(new Point(0,1,0));
 
             expected.Assert(actual);
         }
@@ -78,9 +78,9 @@ namespace RayTraceTest.Models
         public void NormalAtAPointOnZAxis()
         {
             var sphere = new Sphere();
-            var expected = RayTuple.Vector(0,0,1);
+            var expected = new Vector(0,0,1);
 
-            var actual = sphere.NormalAt(RayTuple.Point(0,0,1));
+            var actual = sphere.NormalAt(new Point(0,0,1));
 
             expected.Assert(actual);
         }
@@ -88,8 +88,8 @@ namespace RayTraceTest.Models
         public void NormalAtNonaxialPoint()
         {
             var sphere = new Sphere();
-            var expected = RayTuple.Vector(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
-            var vector = sphere.NormalAt(RayTuple.Point(Math.Sqrt(3)/3, Math.Sqrt(3)/3, Math.Sqrt(3)/3));
+            var expected = new Vector(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
+            var vector = sphere.NormalAt(new Point(Math.Sqrt(3)/3, Math.Sqrt(3)/3, Math.Sqrt(3)/3));
 
             expected.Assert(vector);
         }
@@ -97,7 +97,7 @@ namespace RayTraceTest.Models
         public void NormalAtIsNormalised()
         {
             var sphere = new Sphere();
-            var vector = sphere.NormalAt( RayTuple.Point(Math.Sqrt(3)/3, Math.Sqrt(3)/3, Math.Sqrt(3)/3));
+            var vector = sphere.NormalAt( new Point(Math.Sqrt(3)/3, Math.Sqrt(3)/3, Math.Sqrt(3)/3));
 
             vector.Assert(vector.Normalise());
         }
@@ -107,9 +107,9 @@ namespace RayTraceTest.Models
             var sphere = new Sphere();
             sphere.Transform = TranslationTransform.TranslationMatrix(0,1,0);
 
-            var actual = sphere.NormalAt(RayTuple.Point(0, 1.70711, -0.70711));
+            var actual = sphere.NormalAt(new Point(0, 1.70711, -0.70711));
 
-            RayTuple.Vector(0,0.70711, -0.70711)
+            new Vector(0,0.70711, -0.70711)
                     .Assert(actual);
         }
         [TestMethod]
@@ -117,11 +117,11 @@ namespace RayTraceTest.Models
         {
             var sphere = new Sphere();
             sphere.Transform = ScalingTransform.ScaleMatrix(1,0.5,1) * RotateZTransform.RotateZMatrix(Math.PI/5);
-            var point = RayTuple.Point(0, Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
+            var point = new Point(0, Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
 
             var actual = sphere.NormalAt(point);
 
-            RayTuple.Vector(0, 0.97014, -0.24254)
+            new Vector(0, 0.97014, -0.24254)
                     .Assert(actual);
         }
         [TestMethod]

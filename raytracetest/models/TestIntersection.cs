@@ -71,21 +71,21 @@ namespace RayTraceTest.Models
         [TestMethod]
         public void PrecomputeIntersectionState()
         {
-            var ray = new Ray(RayTuple.Point(0,0,-5), RayTuple.Vector(0,0,1));
+            var ray = new Ray(new Point(0,0,-5), new Vector(0,0,1));
             var sphere = new Sphere();
             var i = new Intersection(4, sphere);
 
             var comps = i.PrepareComputations(ray);
             Assert.AreEqual( i.T, comps.T);
             Assert.AreEqual( i.Element, comps.Element);
-            RayTuple.Vector(0,0,-1).Assert(comps.EyeV);
-            RayTuple.Vector(0,0,-1).Assert(comps.NormalV);
-            RayTuple.Point(0,0,-1).Assert(comps.Point);
+            new Vector(0,0,-1).Assert(comps.EyeV);
+            new Vector(0,0,-1).Assert(comps.NormalV);
+            new Point(0,0,-1).Assert(comps.Point);
         }
         [TestMethod]
         public void HitWhenIntersectionOccursOnOutside()
         {
-            var ray = new Ray(RayTuple.Point(0,0,-5), RayTuple.Vector(0,0,1));
+            var ray = new Ray(new Point(0,0,-5), new Vector(0,0,1));
             var sphere = new Sphere();
             var i = new Intersection(4, sphere);
 
@@ -95,15 +95,15 @@ namespace RayTraceTest.Models
         [TestMethod]
         public void HitWhenIntersectionOccursOnInside()
         {
-            var ray = new Ray(RayTuple.Point(0,0,0), RayTuple.Vector(0,0,1));
+            var ray = new Ray(new Point(0,0,0), new Vector(0,0,1));
             var sphere = new Sphere();
             var i = new Intersection(1, sphere);
 
             var comps = i.PrepareComputations(ray);
-            RayTuple.Point(0,0,1).Assert(comps.Point);
-            RayTuple.Vector(0,0,-1).Assert(comps.EyeV);
+            new Point(0,0,1).Assert(comps.Point);
+            new Vector(0,0,-1).Assert(comps.EyeV);
             Assert.IsTrue(comps.Inside);
-            RayTuple.Vector(0,0,-1).Assert(comps.NormalV);
+            new Vector(0,0,-1).Assert(comps.NormalV);
         }
 
         [TestInitialize]

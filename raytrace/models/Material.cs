@@ -39,7 +39,7 @@ namespace RayTrace.Models
                 Shininess == b.Shininess );
         }
 
-        public Colour Lighting(Light light, RayTuple point, RayTuple eyev, RayTuple normalv)
+        public Colour Lighting(Light light, Point point, Vector eyev, Vector normalv)
         {
             var effectiveColour = Colour * light.Intensity;
             var lightv = (light.Position - point).Normalise();
@@ -66,10 +66,10 @@ namespace RayTrace.Models
         public override int GetHashCode()
         {
             return Colour.GetHashCode() + 
-                Ambient.GetHashCode() +  
-                Diffuse.GetHashCode() +  
-                Specular.GetHashCode() +  
-                Shininess.GetHashCode();  
+                   Ambient.GetHashCode() +  
+                   Diffuse.GetHashCode() +  
+                   Specular.GetHashCode() +  
+                   Shininess.GetHashCode();  
         }
 
         public override string ToString()

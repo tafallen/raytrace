@@ -6,7 +6,7 @@ namespace RayTrace.Transforms
     public class ViewTransform : BasicTransform
     {
         private ViewTransform(Matrix matrix) => Matrix = matrix;
-        public static ViewTransform ViewTransformMatrix(RayTuple from, RayTuple to, RayTuple up)
+        public static ViewTransform ViewTransformMatrix(Point from, Point to, Vector up)
         {
             var forward = (to - from).Normalise();
             var upn = up.Normalise();

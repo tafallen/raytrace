@@ -4,9 +4,9 @@ namespace RayTrace.Engine
 {
     public class Projectile
     {
-        public RayTuple Position {get; set;}
-        public RayTuple Velocity {get; set;}
-        public Projectile(RayTuple position, RayTuple velocity)
+        public Point Position {get; set;}
+        public Vector Velocity {get; set;}
+        public Projectile(Point position, Vector velocity)
         {
             Position = position;
             Velocity = velocity;

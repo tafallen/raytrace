@@ -24,13 +24,19 @@ namespace RayTrace.Transforms
             var d = Transform(ray.Direction);
             return new Ray(p,d);
         }
-        public new RayTuple Transform(RayTuple a)
+        public new Point Transform(Point a)
         {
-            return new RayTuple(
+            return new Point(
                 a.X * Matrix[0,0], 
                 a.Y * Matrix[1,1], 
-                a.Z * Matrix[2,2], 
-                a.Type);
+                a.Z * Matrix[2,2]);
+        }
+        public new Vector Transform(Vector a)
+        {
+            return new Vector(
+                a.X * Matrix[0,0], 
+                a.Y * Matrix[1,1], 
+                a.Z * Matrix[2,2]);
         }
         public override string ToString()
         {

@@ -8,7 +8,7 @@ namespace RayTraceTest.Models
         [TestMethod]
         public void TestCreateLightSuccess()
         {
-            var pos = RayTuple.Point(0,0,0);
+            var pos = new Point(0,0,0);
             var col = new Colour(1,1,1);
             var light = new Light()
             {
