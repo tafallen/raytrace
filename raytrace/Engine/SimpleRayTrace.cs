@@ -37,37 +37,38 @@ namespace RayTrace.Engine
                 Intensity = new Colour(1,1,1)
             };
 
-            for(int y = 0; y < canvas_pixels; y++)
+            Parallel.For(0,canvas_pixels, y =>
             {
                 var world_y = half - pixel_size * y;
-
-                for(int x = 0; x < canvas_pixels; x++)
-                {
-                    var world_x = -half + pixel_size * x;
-                    var position = new Point(world_x, world_y, wall_z);
-
-                    var ray = new Ray(rayOrigin, (position - rayOrigin).Normalise());
-
-                    var intersects = shape.Intersect(ray);
-
-                    if(intersects.Hit() != null)
-                    {
-                        var hit = intersects.Hit();
-                        if( hit != null)
-                        {
-                            var point = ray.Position(hit.T);
-                            var normal = ((Sphere)hit.Element).NormalAt(point);
-                            var eye = !(ray.Direction as Vector);
-                            var s = ((Sphere)hit.Element);
-                            var c = s.Material.Lighting(light,point,eye,normal);
-
-                            canvas.WritePixel(x,y,c);
-                        }
-                    }
-                }
-            }
+                Parallel.For(0, canvas_pixels, x => CalulatePixelColour(world_y, x, y, shape, light, canvas));
+            });
 
             File.WriteAllText("SimpleRayTrace.ppm", canvas.ToPPM());
+        }
+
+        private void CalulatePixelColour(double world_y,int x,int y,Sphere shape, Light light, Canvas canvas)
+        {
+            var world_x = -half + pixel_size * x;
+            var position = new Point(world_x, world_y, wall_z);
+
+            var ray = new Ray(rayOrigin, (position - rayOrigin).Normalise());
+
+            var intersects = shape.Intersect(ray);
+
+            if(intersects.Hit() != null)
+            {
+                var hit = intersects.Hit();
+                if( hit != null)
+                {
+                    var point = ray.Position(hit.T);
+                    var normal = ((Sphere)hit.Element).NormalAt(point);
+                    var eye = !(ray.Direction as Vector);
+                    var s = ((Sphere)hit.Element);
+                    var c = s.Material.Lighting(light,point,eye,normal);
+
+                    canvas.WritePixel(x,y,c);
+                }
+            }
         }
     }
 }
