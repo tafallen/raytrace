@@ -94,10 +94,5 @@ namespace RayTraceTest.Models
             Assert.AreEqual(1.0, xs[1].T);
             Assert.AreEqual(sphere, xs[1].Element);
         }
-        [TestInitialize]
-        public void Setup()
-        {
-            Intersections.List.Clear();
-        }  
     }
 }

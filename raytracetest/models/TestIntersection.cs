@@ -19,53 +19,57 @@ namespace RayTraceTest.Models
         [TestMethod]
         public void HitReturnedSucceeds()
         {
+            var intersections = new Intersections();
             var sphere = new Sphere();
             var i1 = new Intersection(1, sphere);
             var i2 = new Intersection(2, sphere);
-            Intersections.List.Add(i1);
-            Intersections.List.Add(i2);
+            intersections.Add(i1);
+            intersections.Add(i2);
             
-            var hit = Intersections.List.Hit();
+            var hit = intersections.Hit();
             Assert.AreEqual(i1, hit);
         }
         [TestMethod]
         public void FirstPositiveHitReturnedSucceeds()
         {
+            var intersections = new Intersections();
             var sphere = new Sphere();
             var i1 = new Intersection(-1, sphere);
             var i2 = new Intersection(3, sphere);
-            Intersections.List.Add(i1);
-            Intersections.List.Add(i2);
+            intersections.Add(i1);
+            intersections.Add(i2);
             
-            var hit = Intersections.List.Hit();
+            var hit = intersections.Hit();
             Assert.AreEqual(i2, hit);
         }
         [TestMethod]
         public void EmptyIfNoPosHitSucceeds()
         {
+            var intersections = new Intersections();
             var sphere = new Sphere();
             var i1 = new Intersection(-1, sphere);
             var i2 = new Intersection(-3, sphere);
-            Intersections.List.Add(i1);
-            Intersections.List.Add(i2);
+            intersections.Add(i1);
+            intersections.Add(i2);
             
-            var hit = Intersections.List.Hit();
+            var hit = intersections.Hit();
             Assert.IsNull(hit);
         }
         [TestMethod]
         public void LowestHitReturnedSucceeds()
         {
+            var intersections = new Intersections();
             var sphere = new Sphere();
             var i1 = new Intersection(5, sphere);
             var i2 = new Intersection(7, sphere);
             var i3 = new Intersection(-3, sphere);
             var i4 = new Intersection(2, sphere);
-            Intersections.List.Add(i1);
-            Intersections.List.Add(i2);
-            Intersections.List.Add(i3);
-            Intersections.List.Add(i4);
+            intersections.Add(i1);
+            intersections.Add(i2);
+            intersections.Add(i3);
+            intersections.Add(i4);
             
-            var hit = Intersections.List.Hit();
+            var hit = intersections.Hit();
             Assert.AreEqual(i4, hit);
         }
         [TestMethod]
@@ -104,12 +108,6 @@ namespace RayTraceTest.Models
             new Vector(0,0,-1).Assert(comps.EyeV);
             Assert.IsTrue(comps.Inside);
             new Vector(0,0,-1).Assert(comps.NormalV);
-        }
-
-        [TestInitialize]
-        public void Setup()
-        {
-            Intersections.List.Clear();
         }
     }
 }

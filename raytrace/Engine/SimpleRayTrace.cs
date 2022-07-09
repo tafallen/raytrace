@@ -48,11 +48,11 @@ namespace RayTrace.Engine
 
                     var ray = new Ray(rayOrigin, (position - rayOrigin).Normalise());
 
-                    Intersections intersects = shape.Intersect(ray);
+                    var intersects = shape.Intersect(ray);
 
-                    if(Intersections.List.Hit() != null)
+                    if(intersects.Hit() != null)
                     {
-                        var hit = Intersections.List.Hit();
+                        var hit = intersects.Hit();
                         if( hit != null)
                         {
                             var point = ray.Position(hit.T);
@@ -64,7 +64,6 @@ namespace RayTrace.Engine
                             canvas.WritePixel(x,y,c);
                         }
                     }
-                    Intersections.List.Clear();
                 }
             }
 

@@ -40,15 +40,16 @@ namespace RayTrace.Models
             var discriminant = (b * b) - 4 * a * c;
 
             if( discriminant < 0)
-                return Intersections.List;
+                return new Intersections();
 
             var t1 = (-b - Math.Sqrt(discriminant)) / (2*a);
             var t2 = (-b + Math.Sqrt(discriminant)) / (2*a);
 
-            Intersections.List.Add(new Intersection(t1, this));
-            Intersections.List.Add(new Intersection(t2, this));
+            var result = new Intersections();
+            result.Add(new Intersection(t1, this));
+            result.Add(new Intersection(t2, this));
 
-            return Intersections.List;
+            return result;
         }
     }
 }

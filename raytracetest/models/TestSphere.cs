@@ -8,11 +8,6 @@ namespace RayTraceTest.Models
     [TestClass]
     public class TestSphere
     {
-        [TestInitialize]
-        public void Setup()
-        {
-            Intersections.List.Clear();
-        }
         [TestMethod]
         public void CreateSucceeds()
         {

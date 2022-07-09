@@ -260,11 +260,5 @@ namespace RayTraceTest.Models
  	            { 0.00000, 0.00000,  0.00000,  1.00000}});
             expected.Assert(transform.Matrix);
         }
-
-        [TestInitialize]
-        public void Setup()
-        {
-            Intersections.List.Clear();
-        }  
     }
 }

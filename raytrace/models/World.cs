@@ -13,11 +13,12 @@ namespace RayTrace.Models
 
         public Intersections Intersect(Ray ray)
         {
+            Intersections result = new Intersections();
             foreach(var item in Elements)
             {
-                item.Intersect(ray);
+                result.AddRange(item.Intersect(ray));
             }
-            return Intersections.List;
+            return result;
         }
 
         public Colour ShadeHit(Comps comps)
