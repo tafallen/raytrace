@@ -220,28 +220,30 @@ namespace RayTraceTest.Models
 
             transform.Matrix.Assert(Matrix.IdentityMatrix);
         }
-        // [TestMethod]
-        // public void TransformationMatrixPosZDirection()
-        // {
-        //     var from = new Point(0, 0, 0);
-        //     var to   = new Point(0, 0, 1);
-        //     var up   = new Vector(0, 1, 0);
+        [Ignore]
+        [TestMethod]
+        public void TransformationMatrixPosZDirection()
+        {
+            var from = new Point(0, 0, 0);
+            var to   = new Point(0, 0, 1);
+            var up   = new Vector(0, 1, 0);
 
-        //     var transform = ViewTransform.ViewTransformMatrix(from, to, up);
+            var transform = ViewTransform.ViewTransformMatrix(from, to, up);
             
-        //     ScalingTransform.ScaleMatrix(-1,-1,-1).Matrix.Assert(transform.Matrix);
-        // }
-        // [TestMethod]
-        // public void TransformationMovesWorld()
-        // {
-        //     var from = new Point(0, 0, 8);
-        //     var to   = new Point(0, 0, 0);
-        //     var up   = new Vector(0, 1, 0);
+            ScalingTransform.ScaleMatrix(-1,-1,-1).Matrix.Assert(transform.Matrix);
+        }
+        [Ignore]
+        [TestMethod]
+        public void TransformationMovesWorld()
+        {
+            var from = new Point(0, 0, 8);
+            var to   = new Point(0, 0, 0);
+            var up   = new Vector(0, 1, 0);
 
-        //     var transform = ViewTransform.ViewTransformMatrix(from, to, up);
+            var transform = ViewTransform.ViewTransformMatrix(from, to, up);
 
-        //     ScalingTransform.ScaleMatrix( 0, 0,-8).Matrix.Assert(transform.Matrix);
-        // }
+            ScalingTransform.ScaleMatrix( 0, 0,-8).Matrix.Assert(transform.Matrix);
+        }
         [TestMethod]
         public void TransformationArbitrary()
         {
