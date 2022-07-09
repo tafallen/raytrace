@@ -1,6 +1,6 @@
 namespace RayTraceTest.Models
 {
-    using RayTrace.Extensions;
+    using RayTrace.Transforms;
     using RayTrace.Models;
     using RayTraceTest.Assertors;
 
@@ -102,6 +102,68 @@ namespace RayTraceTest.Models
 
             var result = material.Lighting(light, point, eyev, normalv);
             expected.Assert(result);
+        }
+        [TestMethod]
+        public void LightingWithSurfaceInShadow()
+        {
+            var expected = new Colour(0.1,0.1,0.1);
+            var material = new Material();
+            var point = new Point(0,0,0);
+            var eyev = new Vector(0,0,-1);
+            var normalv = new Vector(0,0,-1);
+            var light = new Light() 
+            { 
+                Position = new Point(0,0,-10), 
+                Intensity = new Colour(1,1,1) 
+            };
+            var result = material.Lighting(light, point, eyev, normalv, true);
+            expected.Assert(result);
+        }
+        [TestMethod]
+        public void NoShadowNothingColinearWithPointAndLight()
+        {
+            var world = CreateDefaultWorld();
+            var point = new Point(0,10,0);
+
+            Assert.IsFalse(world.IsShadowed(point));
+        }
+        [TestMethod]
+        public void ShadowObjectBetweenPointAndLight()
+        {
+            var world = CreateDefaultWorld();
+            var point = new Point(10,-10,10);
+
+            Assert.IsTrue(world.IsShadowed(point));
+        }
+        [TestMethod]
+        public void NoShadowObjectBehindLight()
+        {
+            var world = CreateDefaultWorld();
+            var point = new Point(-20,20,-20);
+
+            Assert.IsFalse(world.IsShadowed(point));
+        }
+        [TestMethod]
+        public void NoShadowObjectBehindPoint()
+        {
+            var world = CreateDefaultWorld();
+            var point = new Point(-2,2,-2);
+
+            Assert.IsFalse(world.IsShadowed(point));
+        }
+
+        private World CreateDefaultWorld()
+        {
+            var world = new World();
+            var light = new Light(){Position = new Point(-10,10,-10), Intensity = new Colour(1,1,1)};
+            var s1Material = new Material(){Colour = new Colour(0.8,1.0,0.6), Diffuse=0.7,Specular=0.2};
+            var s1 = new Sphere() { Material = s1Material };
+            var s2 = new Sphere() { Transform = ScalingTransform.ScaleMatrix(0.5,0.5,0.5) };
+
+            world.Light = light;
+            world.Elements.Add(s1);
+            world.Elements.Add(s2);
+            return world;
         }
     }
 }

@@ -39,7 +39,7 @@ namespace RayTrace.Models
                 Shininess == b.Shininess );
         }
 
-        public Colour Lighting(Light light, Point point, Vector eyev, Vector normalv)
+        public Colour Lighting(Light light, Point point, Vector eyev, Vector normalv, bool inShadow = false)
         {
             var effectiveColour = Colour * light.Intensity;
             var lightv = (light.Position - point).Normalise();
@@ -60,7 +60,10 @@ namespace RayTrace.Models
                     specular = light.Intensity * Specular * factor;
                 }
             }
-            return ambient + diffuse + specular;
+            if( inShadow )
+                return ambient;
+            else
+                return ambient + diffuse + specular;
         }
 
         public override int GetHashCode()
