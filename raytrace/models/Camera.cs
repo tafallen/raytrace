@@ -55,16 +55,13 @@ namespace RayTrace.Models
         {
             var image = new Canvas(Hsize, Vsize);
 
-            for(int y = 0; y < Vsize; y++)
-            {
-                for(int x = 0; x < Hsize; x++)
-                {
+            Parallel.For(0, Vsize, y=>{
+                Parallel.For(0, Hsize, x=>{
                     var ray = RayForPixel(x,y);
                     var colour = world.ColourAt(ray);
                     image.WritePixel(x,y,colour); 
-                }
-            }
-
+                });
+            });
             return image;
         }
     }
