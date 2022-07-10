@@ -14,10 +14,6 @@ namespace RayTrace.Models
             Radius = 1;
             Transform = BasicTransform.NullTransform;
         }
-        public Sphere(Point origin) : this()
-        {
-            Origin = origin;
-        }
         public override string ToString()
         {
             return $"Sphere - Radius: {Radius}, Origin: {Origin}, Transform: {Transform}";

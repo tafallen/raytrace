@@ -33,8 +33,9 @@ namespace RayTrace.Models
                 inside = true;
                 normalv = !normalv;
             }
+            var overPoint = point * normalv * DoubleExtensions.EPSILON;
 
-            return new Comps(T, Element, point , eyev, normalv, inside);
+            return new Comps(T, Element, point, overPoint , eyev, normalv, inside);
         }
     }
 }

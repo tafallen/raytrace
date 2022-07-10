@@ -106,7 +106,40 @@ namespace RayTraceTest.Models
 
             inner.Material.Colour.Assert(world.ColourAt(ray));
         }
+        [TestMethod]
+        public void ShadeHitGivenIntersectionInShadow()
+        {
+            var world = CreateDefaultWorld();
+            world.Light = new Light(new Point(0,0,-10),new Colour(1,1,1));
+            var sphere1 = new Sphere();
+            world.Elements.Add(sphere1);
 
+            var sphere2 = new Sphere()
+            {
+                Transform = TranslationTransform.TranslationMatrix(0,0,10)
+            };
+            world.Elements.Add(sphere2);
+            var ray = new Ray(new Point(0,0,5), new Vector(0,0,1));
+            var intersection = new Intersection(4, sphere2);
+            var comps = intersection.PrepareComputations(ray);
+            var expected = world.ShadeHit(comps);
+            new Colour(0.1,0.1,0.1).Assert(expected);
+        }
+        [TestMethod]
+        public void HitShouldOffsetPoint()
+        {
+            var ray = new Ray(new Point(0,0,-5),new Vector(0,0,1));
+            var sphere = new Sphere()
+            {
+                Transform = TranslationTransform.TranslationMatrix(0,0,1)
+            };
+            var intersection = new Intersection(5, sphere);
+            var comps = intersection.PrepareComputations(ray);
+            Assert.IsTrue(comps.OverPoint.Z < -DoubleExtensions.EPSILON/2);
+            Assert.IsTrue(comps.Point.Z > comps.OverPoint.Z);
+        }
+
+        // This is repeated too often. DRY it out!
         private World CreateDefaultWorld()
         {
             var world = new World();

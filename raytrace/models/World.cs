@@ -3,6 +3,7 @@ namespace RayTrace.Models
     using RayTrace.Extensions;
     public class World
     {
+        // I don't like exposing this...
         public List<Element> Elements {get;set;}
         public Light Light {get;set;}
         public World()
@@ -22,6 +23,11 @@ namespace RayTrace.Models
         public Colour ShadeHit(Comps comps)
         {
             return comps.Element.Material.Lighting(Light, comps.Point, comps.EyeV, comps.NormalV);
+            // var shadowed = IsShadowed(comps.OverPoint);
+
+            // var colour = comps.Element.Material.Lighting(Light, comps.OverPoint, comps.EyeV, comps.NormalV, shadowed);
+
+            // return colour;
         }
         public Colour ColourAt(Ray ray)
         {

@@ -80,8 +80,8 @@ namespace RayTraceTest.Models
             var i = new Intersection(4, sphere);
 
             var comps = i.PrepareComputations(ray);
-            Assert.AreEqual( i.T, comps.T);
-            Assert.AreEqual( i.Element, comps.Element);
+            Assert.AreEqual(i.T, comps.Time);
+            Assert.AreEqual(i.Element, comps.Element);
             new Vector(0,0,-1).Assert(comps.EyeV);
             new Vector(0,0,-1).Assert(comps.NormalV);
             new Point(0,0,-1).Assert(comps.Point);
