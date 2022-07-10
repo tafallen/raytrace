@@ -3,17 +3,24 @@ namespace RayTrace.Models
     using RayTrace.Extensions;
     public class World
     {
-        // I don't like exposing this...
-        public List<Element> Elements {get;set;}
+        private List<Element> Elements {get;set;}
         public Light Light {get;set;}
         public World()
         {
             Elements = new List<Element>();
             Light = new Light();
         }
+        public void Add(Element element)
+        {
+            Elements.Add(element);
+        }
+        public IReadOnlyCollection<Element> GetElements()
+        {
+            return Elements.AsReadOnly();
+        }
         public Intersections Intersect(Ray ray)
         {
-            Intersections result = new Intersections();
+            var result = new Intersections();
             foreach(var item in Elements)
             {
                 result.AddRange(item.Intersect(ray));
@@ -51,10 +58,7 @@ namespace RayTrace.Models
             var intersections = Intersect(ray);
 
             var h = intersections.Hit();
-            if(h!= null && h.T < distance)
-                return true;
-            else 
-                return false;
+            return (h!= null && h.T < distance) ? true : false;
         }
     }
 }

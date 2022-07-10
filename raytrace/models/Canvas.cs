@@ -38,7 +38,7 @@ namespace RayTrace.Models
         }
         public string ToPPM()
         {
-            StringBuilder result = new StringBuilder(GetPPMHeader());
+            var result = new StringBuilder(GetPPMHeader());
             
             for(var i = 0; i <Height; i++)
                 result = GetPPMCanvasLine(result,i);
@@ -68,7 +68,7 @@ namespace RayTrace.Models
         }
         private string GetPPMHeader()
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             
             result.AppendLine("P3");
             result.AppendLine($"{Width} {Height}");

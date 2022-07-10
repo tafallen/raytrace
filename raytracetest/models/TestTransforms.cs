@@ -203,9 +203,9 @@ namespace RayTraceTest.Models
         public void TestTranslateSucceeds()
         {
             var ray = new Ray(new Point(1,2,3),new Vector(0,1,0));
-            var translationMatrix = new Matrix(new double[,] {{3,4,5}});
+            var transform = Transformation.Translation(3,4,5);
 
-            var expectedResult = ray.Translate(translationMatrix);
+            var expectedResult = transform.Transform(ray);
             new Point(4,6,8).Assert(expectedResult.Point);
             new Vector(0,1,0).Assert(expectedResult.Direction);
         }

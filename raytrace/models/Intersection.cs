@@ -10,7 +10,6 @@ namespace RayTrace.Models
             T = t;
             Element = element;
         }
-
         public int CompareTo(Intersection? other)
         {
             if( other == null)

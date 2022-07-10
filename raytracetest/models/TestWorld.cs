@@ -13,7 +13,7 @@ namespace RayTraceTest.Models
         public void CreateWorldSuccess()
         {
             var world = new World();
-            Assert.AreEqual(0, world.Elements.Count);
+            Assert.AreEqual(0, world.GetElements().Count);
         }
         [TestMethod]
         public void CreateDefaultWorldSuccess()
@@ -25,12 +25,12 @@ namespace RayTraceTest.Models
             var s2 = new Sphere() { Transform = Transformation.Scale(0.5,0.5,0.5) };
 
             world.Light = light;
-            world.Elements.Add(s1);
-            world.Elements.Add(s2);
+            world.Add(s1);
+            world.Add(s2);
 
             Assert.AreEqual(light, world.Light);
-            Assert.IsTrue(world.Elements.Contains(s1));
-            Assert.IsTrue(world.Elements.Contains(s2));
+            Assert.IsTrue(world.GetElements().Contains(s1));
+            Assert.IsTrue(world.GetElements().Contains(s2));
         }
         [TestMethod]
         public void IntersectWorldWithRay()
@@ -51,7 +51,7 @@ namespace RayTraceTest.Models
         {
             var world = CreateDefaultWorld();
             var ray = new Ray(new Point(0,0,-5), new Vector(0,0,1));
-            var shape = world.Elements.First();
+            var shape = world.GetElements().First();
             var i = new Intersection(4,shape);
 
             var comps = i.PrepareComputations(ray);
@@ -68,7 +68,7 @@ namespace RayTraceTest.Models
                 Intensity = new Colour(1,1,1)
             };
             var ray = new Ray(new Point(0,0,0), new Vector(0,0,1));
-            var shape = world.Elements.Skip(1).First();
+            var shape = world.GetElements().Skip(1).First();
             var i = new Intersection(0.5,shape);
 
             var comps = i.PrepareComputations(ray);
@@ -98,8 +98,8 @@ namespace RayTraceTest.Models
         public void ColourIntersectionBehindRay()
         {
             var world = CreateDefaultWorld();
-            var outer = world.Elements.First();
-            var inner = world.Elements.Last();
+            var outer = world.GetElements().First();
+            var inner = world.GetElements().Last();
             outer.Material.Ambient = 1;
             inner.Material.Ambient = 1;
             var ray = new Ray(new Point(0,0,0.75), new Vector(0,0,-1));
@@ -113,13 +113,13 @@ namespace RayTraceTest.Models
             var world = CreateDefaultWorld();
             world.Light = new Light(new Point(0,0,-10),new Colour(1,1,1));
             var sphere1 = new Sphere();
-            world.Elements.Add(sphere1);
+            world.Add(sphere1);
 
             var sphere2 = new Sphere()
             {
                 Transform = Transformation.Translation(0,0,10)
             };
-            world.Elements.Add(sphere2);
+            world.Add(sphere2);
             var ray = new Ray(new Point(0,0,5), new Vector(0,0,1));
             var intersection = new Intersection(4, sphere2);
             var comps = intersection.PrepareComputations(ray);
@@ -151,8 +151,8 @@ namespace RayTraceTest.Models
             var s2 = new Sphere() { Transform = Transformation.Scale(0.5,0.5,0.5) };
 
             world.Light = light;
-            world.Elements.Add(s1);
-            world.Elements.Add(s2);
+            world.Add(s1);
+            world.Add(s2);
             return world;
         }
     }

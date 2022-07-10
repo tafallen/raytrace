@@ -1,7 +1,6 @@
 namespace RayTrace.Models
 {
     using System.Text;
-    using RayTrace.Extensions;
 
     public class Matrix
     {
@@ -37,19 +36,20 @@ namespace RayTrace.Models
         }
         public static Matrix operator *(Matrix a, Matrix b)
         {
-            if( a.GetDimensions().x != b.GetDimensions().x ||
-                a.GetDimensions().y != b.GetDimensions().y)
+            if( a.GetDimensions() != b.GetDimensions())
                 throw new ArgumentException("operator *() - The two matricies did not have the same dimensions");
+            var x = a.GetDimensions().x;
+            var y = a.GetDimensions().y;
 
             var result = new Matrix(a.GetDimensions());
             for(var i = 0; i<a.GetDimensions().x; i++)
                 for(var j = 0; j<a.GetDimensions().y; j++)
                 {
-                    var x = a[i,0] * b[0,j] +
+                    var z = a[i,0] * b[0,j] +
                             a[i,1] * b[1,j] +
                             a[i,2] * b[2,j] + 
                             a[i,3] * b[3,j];
-                    result[i, j] = x;
+                    result[i, j] = z;
                 }
             return result;
         }
@@ -95,13 +95,15 @@ namespace RayTrace.Models
             var other = obj as Matrix;
             if( obj == null || other == null )
                 throw new ArgumentException("Equals() - other is null");
+            var x = GetDimensions().x;
+            var y = GetDimensions().y;
 
-            if( GetDimensions().x != other.GetDimensions().x ||
-                GetDimensions().y != other.GetDimensions().y)
+            if(x != other.GetDimensions().x ||
+               y != other.GetDimensions().y)
                 return false;
 
-            for(var i = 0; i < GetDimensions().x; i++)
-                for(var j = 0; j < GetDimensions().y; j++)
+            for(var i = 0; i < x; i++)
+                for(var j = 0; j < y; j++)
                     if( this[i,j] != other[i,j])
                         return false;
 
@@ -113,12 +115,14 @@ namespace RayTrace.Models
         }
         public override string ToString()
         {
-            StringBuilder builder = new StringBuilder();
+            var builder = new StringBuilder();
+            var x = GetDimensions().x;
+            var y = GetDimensions().y;
 
-            for(var i = 0; i<GetDimensions().x; i++)
+            for(var i = 0; i<x; i++)
             {
                 builder.Append("(");
-                for(var j = 0; j<GetDimensions().y; j++)
+                for(var j = 0; j<y; j++)
                 {
                     builder.Append($"{matrix[i,j]} ");
                 }

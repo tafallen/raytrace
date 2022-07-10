@@ -28,9 +28,11 @@ namespace RayTrace.Extensions
         {
             var result = new Matrix(m.GetDimensions());
             var determinant = m.Determinant();
+            var x = m.GetDimensions().x;
+            var y = m.GetDimensions().y;
 
-            for(var i=0; i<m.GetDimensions().x; i++)
-                for(var j=0; j<m.GetDimensions().y; j++)
+            for(var i=0; i<x; i++)
+                for(var j=0; j<y; j++)
                     {
                         var value = m.Cofactor(j,i)/determinant;
                         result[i,j] = Math.Round(value,5);
@@ -40,9 +42,11 @@ namespace RayTrace.Extensions
         public static Matrix Transpose(this Matrix m)
         {
             var result = new Matrix((m.GetDimensions().y, m.GetDimensions().x));
+            var x = m.GetDimensions().x;
+            var y = m.GetDimensions().y;
 
-            for(var i = 0; i<m.GetDimensions().x; i++)
-                for(var j = 0; j<m.GetDimensions().y; j++)
+            for(var i = 0; i<x; i++)
+                for(var j = 0; j<y; j++)
                     result[i,j] = m[j,i];
 
             return result;

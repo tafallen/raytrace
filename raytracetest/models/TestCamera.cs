@@ -81,8 +81,8 @@ namespace RayTraceTest.Models
             var s2 = new Sphere() { Transform = Transformation.Scale(0.5,0.5,0.5) };
 
             world.Light = light;
-            world.Elements.Add(s1);
-            world.Elements.Add(s2);
+            world.Add(s1);
+            world.Add(s2);
             return world;
         }
     }

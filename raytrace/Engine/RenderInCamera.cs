@@ -72,7 +72,12 @@ namespace RayTrace.Engine
                     Intensity = new Colour(1, 1, 1)
                 }
             };
-            world.Elements.AddRange(new Element[] { floor, leftWall, rightWall, left, middle, right });
+            world.Add(floor);
+            world.Add(leftWall);
+            world.Add(rightWall);
+            world.Add(left);
+            world.Add(middle);
+            world.Add(right);
 
             var camera = new Camera(500, 250, Math.PI/3)
             {

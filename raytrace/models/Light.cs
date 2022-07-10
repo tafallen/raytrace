@@ -5,9 +5,7 @@ namespace RayTrace.Models
         public Colour Intensity { get; set; }
         public Point Position { get; set; }
 
-        public Light() : this(new Point(0,0,0), new Colour(0,0,0))
-        {
-        }
+        public Light() : this(new Point(0,0,0), new Colour(0,0,0)) { }
 
         public Light(Point position, Colour intensity)
         {
