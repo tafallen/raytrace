@@ -9,7 +9,7 @@ namespace RayTrace.Engine
         {
             var floor = new Sphere()
             {
-                Transform = ScalingTransform.ScaleMatrix(10,0.01,10),
+                Transform = Transformation.Scale(10,0.01,10),
                 Material = new Material()
                 {
                     Colour = new Colour(1, 0.9, 0.9),
@@ -18,23 +18,23 @@ namespace RayTrace.Engine
             };
             var leftWall = new Sphere()
             {
-                Transform = TranslationTransform.TranslationMatrix(0,0,5) * 
-                            RotateYTransform.RotateYMatrix(-(Math.PI/4)) * 
-                            RotateXTransform.RotateXMatrix(Math.PI/2) * 
-                            ScalingTransform.ScaleMatrix(10, 0.01, 10),
+                Transform = Transformation.Translation(0,0,5) * 
+                            Transformation.RotateY(-(Math.PI/4)) * 
+                            Transformation.RotateX(Math.PI/2) * 
+                            Transformation.Scale(10, 0.01, 10),
                 Material = floor.Material
             };
             var rightWall = new Sphere()
             {
-                Transform = TranslationTransform.TranslationMatrix(0,0,5) *
-                            RotateYTransform.RotateYMatrix(Math.PI/4) *
-                            RotateXTransform.RotateXMatrix(Math.PI/2) * 
-                            ScalingTransform.ScaleMatrix(10 , 0.01, 10),
+                Transform = Transformation.Translation(0,0,5) *
+                            Transformation.RotateY(Math.PI/4) *
+                            Transformation.RotateX(Math.PI/2) * 
+                            Transformation.Scale(10 , 0.01, 10),
                 Material = floor.Material 
             };
             var middle = new Sphere()
             {
-                Transform = TranslationTransform.TranslationMatrix(-0.5, 1, 0.5),
+                Transform = Transformation.Translation(-0.5, 1, 0.5),
                 Material = new Material()
                 {
                     Colour = new Colour(0.1, 1, 0.5),
@@ -44,8 +44,8 @@ namespace RayTrace.Engine
             };
             var right = new Sphere()
             {
-                Transform = TranslationTransform.TranslationMatrix(1.5, 0.5, -1.5) * 
-                            ScalingTransform.ScaleMatrix( 0.5, 0.5, 0.5),
+                Transform = Transformation.Translation(1.5, 0.5, -1.5) * 
+                            Transformation.Scale( 0.5, 0.5, 0.5),
                 Material = new Material()
                 {
                     Colour = new Colour(0.5, 1, 0.1),
@@ -55,8 +55,8 @@ namespace RayTrace.Engine
             };
             var left = new Sphere()
             {
-                Transform = TranslationTransform.TranslationMatrix(-1.5, 0.33, -0.75) * 
-                            ScalingTransform.ScaleMatrix( 0.33, 0.33, 0.33),
+                Transform = Transformation.Translation(-1.5, 0.33, -0.75) * 
+                            Transformation.Scale( 0.33, 0.33, 0.33),
                 Material = new Material()
                 {
                     Colour = new Colour(1, 0.8, 0.1),

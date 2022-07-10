@@ -6,13 +6,13 @@ namespace RayTrace.Models
     {
         public Point Origin{ get; set;}
         public double Radius {get; set;}
-        public BasicTransform Transform {get; set;} 
+        public Transformation Transform {get; set;} 
         
         public Sphere() : base()
         {
             Origin = new Point(0,0,0);
             Radius = 1;
-            Transform = BasicTransform.NullTransform;
+            Transform = Transformation.NullTransform;
         }
         public override string ToString()
         {

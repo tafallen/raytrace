@@ -19,7 +19,7 @@ namespace RayTraceTest.Models
         public void SetTransformationSucceeds()
         {
             var sphere = new Sphere();
-            var transform = TranslationTransform.TranslationMatrix(2,3,4);;
+            var transform = Transformation.Translation(2,3,4);;
 
             sphere.Transform = transform;
 
@@ -30,7 +30,7 @@ namespace RayTraceTest.Models
         {
             var sphere = new Sphere();
             var ray = new Ray(new Point(0,0,-5),new Vector(0,0,1));
-            var scaling = ScalingTransform.ScaleMatrix(2,2,2);
+            var scaling = Transformation.Scale(2,2,2);
             sphere.Transform = scaling;
 
             var intersects = sphere.Intersect(ray);
@@ -42,7 +42,7 @@ namespace RayTraceTest.Models
         {
             var sphere = new Sphere();
             var ray = new Ray(new Point(0,0,-5),new Vector(0,0,1));
-            var translate = TranslationTransform.TranslationMatrix(5,0,0);
+            var translate = Transformation.Translation(5,0,0);
             sphere.Transform = translate;
 
             var intersects = sphere.Intersect(ray);
@@ -100,7 +100,7 @@ namespace RayTraceTest.Models
         public void NormalOnTranslatedSphere()
         {
             var sphere = new Sphere();
-            sphere.Transform = TranslationTransform.TranslationMatrix(0,1,0);
+            sphere.Transform = Transformation.Translation(0,1,0);
 
             var actual = sphere.NormalAt(new Point(0, 1.70711, -0.70711));
 
@@ -111,7 +111,8 @@ namespace RayTraceTest.Models
         public void NormalOnTransformedSphere()
         {
             var sphere = new Sphere();
-            sphere.Transform = ScalingTransform.ScaleMatrix(1,0.5,1) * RotateZTransform.RotateZMatrix(Math.PI/5);
+            sphere.Transform = Transformation.Scale(1,0.5,1) * 
+                               Transformation.RotateZ(Math.PI/5);
             var point = new Point(0, Math.Sqrt(2)/2, -(Math.Sqrt(2)/2));
 
             var actual = sphere.NormalAt(point);

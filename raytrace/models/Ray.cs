@@ -5,11 +5,11 @@ namespace RayTrace.Models
     {
         public Point Point{get; private set;}
         public Vector Direction{get; private set;}
-        public BasicTransform Transform{get; set;}
+        public Transformation Transform{get; set;}
 
         public Ray( Point point, Vector direction)
         {
-            Transform = BasicTransform.NullTransform;
+            Transform = Transformation.NullTransform;
 
             if( point == null || 
                 direction == null)

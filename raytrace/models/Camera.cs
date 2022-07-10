@@ -9,7 +9,7 @@ namespace RayTrace.Models
         public double FieldOfView {get;set;}
         public double HalfWidth {get;set;}
         public double HalfHeight {get;set;}
-        public BasicTransform Transform {get;set;}
+        public Transformation Transform {get;set;}
         public double PixelSize
         {
             get
@@ -34,7 +34,7 @@ namespace RayTrace.Models
             Hsize = hsize;
             Vsize = vsize;
             FieldOfView = fieldOfView;
-            Transform = new CompoundTransform(){ Matrix = Matrix.IdentityMatrix };
+            Transform = new Transformation( Matrix.IdentityMatrix );
         }
         public Ray RayForPixel(int px, int py)
         {
